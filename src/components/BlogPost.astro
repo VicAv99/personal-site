@@ -1,0 +1,47 @@
+---
+export interface Props extends astroHTML.JSX.AnchorHTMLAttributes {
+  title: string;
+  description: string;
+  date: string;
+  readingTime: string;
+}
+
+const {
+  href,
+  class: className,
+  date,
+  description,
+  title,
+  readingTime,
+  ...props
+} = Astro.props;
+
+const formattedDate = new Date(date).toLocaleDateString("en-us", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+---
+
+<a
+  href={href}
+  rel="prefetch"
+  class="mb-8 flex flex-col gap-y-3 rounded-xl border border-transparent p-4 transition-colors hover:border hover:border-cyan-400 hover:border-opacity-20 hover:no-underline"
+  {...props}
+>
+  <h3 class="text-xl font-semibold text-zinc-700 md:text-2xl">
+    {title}
+  </h3>
+
+  <p class="text-sm font-medium text-zinc-600 md:text-base">{description}</p>
+
+  <div class="flex items-center gap-x-2 text-xs font-light text-zinc-500">
+    <time datetime={date}>
+      {formattedDate}
+    </time>
+
+    <span>•</span>
+
+    <span>{readingTime}</span>
+  </div>
+</a>

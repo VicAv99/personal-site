@@ -1,0 +1,28 @@
+---
+import BlogPost from "../components/BlogPost.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+import type { Post } from "../types";
+
+const posts = (await Astro.glob<Post>("./blog/*.{md,mdx}"))
+  .filter((post) => !post.frontmatter.draft)
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.pubDate).valueOf() -
+      new Date(a.frontmatter.pubDate).valueOf()
+  );
+---
+
+<MainLayout>
+  <h2 class="mb-5 text-2xl font-semibold">Blog</h2>
+  {
+    posts.map((post) => (
+      <BlogPost
+        href={post.url}
+        title={post.frontmatter.title}
+        description={post.frontmatter.description}
+        date={post.frontmatter.pubDate}
+        readingTime={post.frontmatter.readingTime}
+      />
+    ))
+  }
+</MainLayout>
