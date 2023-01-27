@@ -1,31 +1,20 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import IntroSection from "../components/IntroSection.astro";
+import MainLayout from "../layouts/MainLayout.astro";
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body>
-    <Header title={SITE_TITLE} />
-    <main>
-      <IntroSection />
-      <div class="my-10">
-        Hi! I am very passionate developer who loves to learn and help others
-        learn. I'm interested in all things web and all the cool and cutting
-        edge technologies that come with it. I specialize in Angular and React,
-        but am very interested in Astro and SvelteKit.
-        <br />
-        <br />
-        In my off-time, I like watching "The Office", Play a game of Darts, and going
-        out for a drive.
-      </div>
-    </main>
-    <Footer />
-  </body>
-</html>
+<MainLayout>
+  <main>
+    <IntroSection />
+    <div class="my-10">
+      Hi! I am very passionate developer who loves to learn and help others
+      learn. I'm interested in all things web and all the cool and cutting edge
+      technologies that come with it. I specialize in Angular and React, but am
+      very interested in Astro and SvelteKit.
+      <br />
+      <br />
+      In my off-time, I like watching "The Office", Play a game of Darts, and going
+      out for a drive.
+    </div>
+  </main>
+</MainLayout>
