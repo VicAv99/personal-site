@@ -1,9 +1,11 @@
 ---
 import { clsxm } from "../lib/clsx";
 
-export interface Props extends astroHTML.JSX.AnchorHTMLAttributes {}
+export interface Props extends astroHTML.JSX.AnchorHTMLAttributes {
+  disabled?: boolean;
+}
 
-const { href, class: className, ...props } = Astro.props;
+const { href, class: className, disabled, ...props } = Astro.props;
 
 const { pathname } = Astro.url;
 const isActive =
@@ -15,7 +17,8 @@ const isActive =
 const classes = clsxm(
   "inline-block no-underline px-2 py-1 text-zinc-700",
   "hover:bg-zinc-100 hover:rounded",
-  isActive && "underline font-bold decoration-cyan-500"
+  isActive && "underline font-bold decoration-cyan-500",
+  disabled && "bg-zinc-100 rounded hover:bg-zinc-100 pointer-events-none"
 );
 ---
 
