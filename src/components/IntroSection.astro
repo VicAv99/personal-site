@@ -1,0 +1,24 @@
+---
+import { Image } from "@astrojs/image/components";
+import profile from "/public/profile-birds.jpg";
+---
+
+<div class="my-5 flex items-center justify-between">
+  <div>
+    <h2 class="text-4xl font-bold">Victor Avila</h2>
+    <span class="text-sm text-zinc-500">
+      Software Engineer at <span class="text-cyan-600">Cisco</span>
+    </span>
+    <br />
+    <p class="mt-2">
+      Building awesome and meaningful technology customers care about.
+    </p>
+  </div>
+  <Image
+    src={profile}
+    width={150}
+    height={150}
+    alt="descriptive text"
+    class="rounded-full ml-4 shadow-lg shadow-cyan-100"
+  />
+</div>
