@@ -6,7 +6,11 @@ export interface Props extends astroHTML.JSX.AnchorHTMLAttributes {}
 const { href, class: className, ...props } = Astro.props;
 
 const { pathname } = Astro.url;
-const isActive = href === pathname || href === pathname.replace(/\/$/, "");
+const isActive =
+  href === pathname ||
+  (href === "/"
+    ? href === pathname.replace(/\/$/, "")
+    : pathname.includes(href?.toString() ?? ""));
 
 const classes = clsxm(
   "inline-block no-underline px-2 py-1 text-zinc-700",
