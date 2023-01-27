@@ -8,7 +8,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import { remarkReadingTime } from './src/lib/reading-time.ts';
 
 export default defineConfig({
-  site: "https://example.com",
+  site: "https://victor-avila.com",
   markdown: {
     extendDefaultPlugins: true,
     rehypePlugins: [rehypeAutolinkHeadings],
