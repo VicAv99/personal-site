@@ -15,7 +15,7 @@ const featuredPosts = (await Astro.glob<Post>("./blog/*.{md,mdx}"))
 ---
 
 <MainLayout>
-  <main class="space-y-16">
+  <div class="space-y-16">
     <IntroSection />
     <div>
       Hi! I am a passionate developer who loves to learn and help others learn.
@@ -28,5 +28,5 @@ const featuredPosts = (await Astro.glob<Post>("./blog/*.{md,mdx}"))
       for a drive and take in nature.
     </div>
     <FeatureBlogsSection featuredPosts={featuredPosts} />
-  </main>
+  </div>
 </MainLayout>

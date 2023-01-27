@@ -13,16 +13,18 @@ const posts = (await Astro.glob<Post>("./blog/*.{md,mdx}"))
 ---
 
 <MainLayout>
-  <h2 class="mb-5 text-3xl font-semibold">Blog</h2>
-  {
-    posts.map((post) => (
-      <BlogPost
-        href={post.url}
-        title={post.frontmatter.title}
-        description={post.frontmatter.description}
-        date={post.frontmatter.pubDate}
-        readingTime={post.frontmatter.readingTime}
-      />
-    ))
-  }
+  <div class="space-y-12">
+    <h2 class="my-5 text-4xl font-semibold">Blog</h2>
+    {
+      posts.map((post) => (
+        <BlogPost
+          href={post.url}
+          title={post.frontmatter.title}
+          description={post.frontmatter.description}
+          date={post.frontmatter.pubDate}
+          readingTime={post.frontmatter.readingTime}
+        />
+      ))
+    }
+  </div>
 </MainLayout>

@@ -15,10 +15,10 @@ const isActive =
     : pathname.includes(href?.toString() ?? ""));
 
 const classes = clsxm(
-  "inline-block no-underline px-2 py-1 text-zinc-700",
-  "hover:bg-zinc-100 hover:rounded",
-  isActive && "underline font-bold decoration-cyan-500",
-  disabled && "bg-zinc-100 rounded hover:bg-zinc-100 pointer-events-none"
+  "inline-block no-underline px-2 py-1 text-zinc-700 rounded",
+  "hover:bg-zinc-100",
+  isActive && "underline font-semibold decoration-cyan-500",
+  disabled && "bg-zinc-100 hover:bg-zinc-100 pointer-events-none"
 );
 ---
 

@@ -7,55 +7,160 @@ pubDate: "August 11, 2022"
 featured: true
 ---
 
-## TOPIC_NAME
+### **Project Setup**
 
-TOPIC_DETAILS
-blah blah blah...
+To begin, You can find the repo with the app referenced in this post here: [GitHub — VicAv99/http-interceptors](https://github.com/VicAv99/http-interceptors).
 
-## Table of Contents
+If you would like to skip the sections about what the code is and its uses, please skip to the **Basic Example and Implementation** section.
 
-- topic content 1 [Reference](http://dibya.org)
-- Renders actual, "native" React DOM elements
-- Allows you to escape or skip HTML (try toggling the checkboxes above)
-- If you escape or skip the HTML, no `dangerouslySetInnerHTML` is used! Yay!
+Below you will find quick steps to get started with the example app to follow/explore along:
 
-## Getting started
-
-Preliminary question:
-
-<button onClick={() => alert(42)}>
-  What is the answer to the mystery of universe ??
-</button>
-
-## HTML block below
-
-<blockquote>
-  This blockquote will change based on the HTML settings above.
-</blockquote>
-
-## How about some code?
-
-```js
-var React = require("react");
-var Markdown = require("react-markdown");
-React.render(
-  <Markdown source="# Your markdown here" />,
-  document.getElementById("content")
-);
+```bash
+* Clone the repository: `git clone https://github.com/VicAv99/http-interceptors.git`
+* cd into your cloned directory: `cd http-interceptors`
+* Install dependencies: `npm install`
+* Start the application: `npm start`
 ```
 
-Pretty neat, eh?
+You will now see the application at [http://localhost:4200](http://localhost:4200) and the JSON Server running on [http://localhost:3000/tasks](http://localhost:3000/tasks).
 
-## Tables?
+---
 
-| Feature   | Support |
-| --------- | ------- |
-| tables    | ✔       |
-| alignment | ✔       |
-| wewt      | ✔       |
+### The HttpInterceptor
 
-## More info?
+> Note: The idea of this post is to take a simple example, understand what the example is doing, and find exactly how we can apply that to real-life, larger problems in future projects. Isolated examples, using “cmd + click” to get more detail on a package, and brief but precise explanations can go a long way when faced with bigger problems.
+> Before getting started with the actual code and implementation of our interceptors, let’s take a quick dive into what the [Angular HttpInterceptors](https://angular.io/api/common/http/HttpInterceptor) actually are.
 
-## Read usage information and more on [GitHub](//github.com/rexxars/react-markdown)
+Interceptors, like much of Angular, are just classes. However, the class we create will need to implement the Angular **_HttpInterceptor_** interface. When digging into the type definitions, we see that this interface describes a function named **_intercept_**.
 
-A component by [Espen Hovlandsdal](https://espen.codes/)
+```typescript
+export interface HttpInterceptor {
+  /**
+   * * **req**: The outgoing request to handle
+   * * **next**: The next interceptor in the chain, or the backend if no interceptors in the chain.
+   *
+   */
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>>;
+}
+```
+
+The **_intercept_** function takes two arguments, **_req_** and **_next_**. These arguments also have interfaces applied to them which we use to return some sort of **_HttpEvent_** Observable. First, we’ll expand on what the **_req_** argument is bringing in. As a brief explanation, an **_HttpRequest_** holds any outgoing HTTP request executed by the **_HttpClient_**. Another quick look into the type definitions you will see that included in this request is the URL, method, headers, body, and other request configuration options. This means that this interceptor receives the request and all of its attached properties before sending it off to your server (our JSON Server in this case). The second argument (**_next_**) is a class with an abstract method called **_handle_**. Depending on whether or not you are using multiple interceptors, this method will send its response to the next interceptor, or to the backend if none. Cool!
+
+So to sum it up, we have all of the information we could want about what we are sending back to our server via the **_HttpClient_** and then passing that down the chain of interceptors until finally, we send this off to our backend server. Knowing this information, we can make some awesome things happen.
+
+---
+
+### Basic Example and Implementation
+
+The example that we’re using, is a task app to plan out our day. The developers of the app have hidden some cool features in the form of a **_HttpInterceptor_**’s. These features convert the word “pizza” to a pizza emoji and if you reach a task that is a blocker, a notification will be sent to remind you that there are others there to help. Let’s take a look at the **_BlockerInterceptor_** feature:
+
+```typescript
+// src/core/interceptors/blocker.interceptor.ts
+
+import { Injectable } from ‘@angular/core’;
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from ‘@angular/common/http’;
+import { MatSnackBar } from ‘@angular/material’;
+
+import { Observable } from ‘rxjs’;
+
+@Injectable({
+ providedIn: ‘root’
+})
+export class BlockerInterceptor implements HttpInterceptor {
+ constructor(private snackbar: MatSnackBar) { }
+
+ intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+   if (req.body && req.body.blocker) {
+     const message = ‘Reminder: Your teammates are available for help’;
+
+     this.notify(message);
+   }
+   return next.handle(req);
+ }
+
+ private notify(message: string) {
+   this.snackbar.open(message, ‘Ok’, { duration: 3000 });
+ }
+}
+```
+
+Above is a function named **_notify_** which briefly opens the [Angular Material Snackbar](https://material.angular.io/components/snack-bar/overview) to display a message. Inside of the intercept function, we are checking to see if the request has a body being sent to our server and if the body has a property blocker marked as true. If these criteria are met, the notify method will take effect for three seconds (3000 milliseconds) and the interceptor will continue on and pass down the request.
+
+---
+
+### Hook Up The Interceptor
+
+As you may have noticed, the interceptor feature is using Angular’s **_@Injectable_** decorator just like a service. So now the only thing to infer here is the need for our custom interceptor to be imported into our app module and included in the providers. However, the class needs to be provided to the app in a little different format than what we are used to. Take a look at our app modules providers now:
+
+```typescript
+// app.module.ts
+
+import { HttpClientModule, HTTP_INTERCEPTORS } from ‘@angular/common/http’;
+import { BlockerInterceptor } from ‘./core/interceptors/blocker.interceptor’;
+…
+providers: [
+ { provide: HTTP_INTERCEPTORS, useClass: BlockerInterceptor, multi: true }
+],
+…
+```
+
+For the interceptor to be properly provided, an object with three properties inside of it has to be created. First, add **_provide_** which will listen for the **_HTTP_INTERCEPTORS_** token which represents the array of **_HttpInterceptors_** being used. Once the token is added to the “provide” property, the object checks to see what Class it is going to use for our Interceptor. The **_BlockerInterceptor_** class is imported to the model and included in the **_useClass_** property of the object. As implied, the app will be using multiple interceptors, so **_multi_** is set too true.
+
+> Aside: This approach will only work for applications not using the module per feature or lazy loading. If your app does have either as its architecture, you will have to provide as a per module basis.
+
+---
+
+### Modifying Http Requests
+
+What about the **_PizzaInterceptor_**? The best has been saved for last. Since this is a more “relatable” example of what HttpInterceptors can do, you can apply what you see here and think about ways to streamline your workflows. For example, say you have an access token that needs to append to each header of each request you are sending or you’re getting XML data that needs to be converted to JSON. Doing all of that manually is a pain, but with interceptors, you can do this globally and pain-free.
+
+```typescript
+// src/core/interceptors/pizza.interceptor.ts
+
+import { Injectable } from ‘@angular/core’;
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from ‘@angular/common/http’;
+
+import { Observable } from ‘rxjs’;
+
+@Injectable({
+  providedIn: ‘root’
+})
+export class PizzaInterceptor implements HttpInterceptor {
+  constructor () { }
+
+  // An outgoing HTTP request with an optional typed body.
+  // `HttpRequest` represents an outgoing request, including URL, method,
+  // headers, body, and other request configuration options. Instances should be
+  // assumed to be immutable. To modify a `HttpRequest`, the `clone`
+  // method should be used.
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (req.body) {
+      let { description } = req.body;
+      description = description.replace(/pizza/g, ‘🍕’);
+      const pizzaRequest = req.clone({ body: { description } });
+
+      return next.handle(pizzaRequest);
+    }
+    return next.handle(req);
+  }
+}
+```
+
+Here, we are grabbing the request body that we are sending back and restructuring to get just the description property (what we see as our task). Then we are using some simple regex that globally looks for the word pizza then we use JavaScript’s replace method to switch it out the word pizza for the pizza emoji 🍕. As the typings, we looked at earlier state, in order to modify the HttpRequest we use the **_clone_** method to pass in our new description containing the 🍕emoji. We then return **_next.handle(pizzaRequest)_** and send that down our interceptor chain. Below is our finished app module with our custom pizza interceptor:
+
+```typescript
+// app.module.ts
+
+import { HttpClientModule, HTTP_INTERCEPTORS } from ‘@angular/common/http’;
+import { BlockerInterceptor } from ‘./core/interceptors / blocker.interceptor’;
+import { PizzaInterceptor } from ‘./core/interceptors / pizza.interceptor’;
+…
+providers: [
+  { provide: HTTP_INTERCEPTORS, useClass: BlockerInterceptor, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: PizzaInterceptor, multi: true }
+],
+…
+```
