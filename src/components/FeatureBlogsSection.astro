@@ -10,30 +10,32 @@ interface Props {
 const { featuredPosts } = Astro.props;
 ---
 
-<h4 class="mb-3 text-2xl font-semibold text-zinc-700">
-  {
-    featuredPosts.length ? (
-      "Featured Posts"
-    ) : (
-      <a href="/blog" class="inline-block px-2 py-1 text-cyan-700 underline">
-        Check Out My Blog!
-      </a>
-    )
-  }
-</h4>
-<div class="mb-6 flex flex-col gap-6 md:flex-row">
-  {
-    featuredPosts.map((post) => (
-      <FeaturedBlogPost
-        href={`/blog/${post.frontmatter.slug}`}
-        title={post.frontmatter.title}
-        date={post.frontmatter.pubDate}
-        readingTime={post.frontmatter.readingTime}
-      />
-    ))
-  }
-</div>
+<div class="mb-[70px]">
+  <h4 class="mb-3 text-3xl font-semibold text-zinc-700">
+    {
+      featuredPosts.length ? (
+        "Featured Posts"
+      ) : (
+        <a href="/blog" class="inline-block px-2 py-1 text-cyan-700 underline">
+          Check Out My Blog!
+        </a>
+      )
+    }
+  </h4>
+  <div class="mb-6 flex flex-col gap-6 md:flex-row">
+    {
+      featuredPosts.map((post) => (
+        <FeaturedBlogPost
+          href={`/blog/${post.frontmatter.slug}`}
+          title={post.frontmatter.title}
+          date={post.frontmatter.pubDate}
+          readingTime={post.frontmatter.readingTime}
+        />
+      ))
+    }
+  </div>
 
-<a href="/blog" class="flex items-center text-sm">
-  Check out all my posts <Icon name="mdi:chevron-right" class="h-8 w-8" />
-</a>
+  <a href="/blog" class="flex items-center text-sm">
+    Check out all my posts <Icon name="mdi:chevron-right" class="h-8 w-8" />
+  </a>
+</div>
