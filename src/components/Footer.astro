@@ -1,13 +1,28 @@
 ---
+import FooterIconLink from "./FooterIconLink.astro";
+import { Icon } from "astro-icon";
+
 const today = new Date();
 ---
 
-<footer>
-	&copy; {today.getFullYear()} YOUR NAME HERE. All rights reserved.
+<footer class="py-6">
+  <div class="flex items-center justify-between">
+    <span class="text-xs">
+      &copy; {today.getFullYear()} VICTOR AVILA. All rights reserved.
+    </span>
+    <div class="flex">
+      <FooterIconLink href="https://twitter.com/victoravila__" target="_blank">
+        <Icon name="mdi:twitter" />
+      </FooterIconLink>
+      <FooterIconLink href="https://github.com/VicAv99" target="_blank">
+        <Icon name="mdi:github" />
+      </FooterIconLink>
+      <FooterIconLink
+        href="https://www.linkedin.com/in/victoravila-dev"
+        target="_blank"
+      >
+        <Icon name="mdi:linkedin" />
+      </FooterIconLink>
+    </div>
+  </div>
 </footer>
-<style>
-	footer {
-		padding: 25px;
-		text-align: center;
-	}
-</style>
