@@ -14,7 +14,7 @@ html {
 
 body {
   text-rendering: optimizeLegibility;
-  @apply max-w-[65ch] break-words text-left font-sans text-sm md:text-base;
+  @apply max-w-[65ch] break-words p-7 text-left font-sans text-sm md:p-0 md:text-base;
 }
 
 /* Heading */
