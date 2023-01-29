@@ -26,7 +26,7 @@ const { featuredPosts } = Astro.props;
     {
       featuredPosts.map((post) => (
         <FeaturedBlogPost
-          href={`/blog/${post.frontmatter.slug}`}
+          href={post.url}
           title={post.frontmatter.title}
           date={post.frontmatter.pubDate}
           readingTime={post.frontmatter.readingTime}
