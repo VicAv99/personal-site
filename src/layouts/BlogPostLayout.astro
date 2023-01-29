@@ -1,6 +1,6 @@
 ---
 import MainLayout from "./MainLayout.astro";
-import { Icon } from "astro-icon";
+import { ViewsComponent } from "../components/ViewsComponent";
 
 export interface Props {
   content: {
@@ -12,8 +12,11 @@ export interface Props {
 }
 
 const {
+  url,
   content: { title, description, pubDate, readingTime },
 } = Astro.props;
+
+const slug = url.split("/blog/").join("");
 ---
 
 <MainLayout title={title} description={description}>
@@ -23,11 +26,15 @@ const {
     <div class="pt-4 text-zinc-400">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-x-2">
-          <time class="text-base">Victor Avila</time>
+          <span class="text-base">{readingTime}</span>
           <span>-</span>
           <time class="text-base">{pubDate}</time>
         </div>
-        <span class="text-base">{readingTime}</span>
+        <div class="flex items-center gap-x-2">
+          <time class="text-base">Victor Avila</time>
+          <span>-</span>
+          <ViewsComponent client:only="react" slug={slug} isBlogPage />
+        </div>
       </div>
       <!-- <span>•</span> -->
     </div>

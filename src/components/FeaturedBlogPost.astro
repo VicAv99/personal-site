@@ -1,4 +1,6 @@
 ---
+import { ViewsComponent } from "./ViewsComponent";
+
 interface Props extends astroHTML.JSX.AnchorHTMLAttributes {
   title: string;
   date: string;
@@ -7,9 +9,11 @@ interface Props extends astroHTML.JSX.AnchorHTMLAttributes {
 
 const { date, readingTime, title, ...props } = Astro.props;
 
+const slug = (props.href as string).split("/blog/").join("");
+
 const formattedDate = new Date(date).toLocaleDateString("en-us", {
-  year: "numeric",
-  month: "short",
+  year: "2-digit",
+  month: "numeric",
   day: "numeric",
 });
 ---
@@ -27,13 +31,17 @@ const formattedDate = new Date(date).toLocaleDateString("en-us", {
       </h4>
     </div>
     <div class="items-center justify-between text-xs font-light text-zinc-500">
+      <span>{readingTime}</span>
+
+      <span>•</span>
+
       <time datetime={date}>
         {formattedDate}
       </time>
 
       <span>•</span>
 
-      <span>{readingTime}</span>
+      <ViewsComponent client:only="react" slug={slug} isBlogPage={false} />
     </div>
   </div>
 </a>
