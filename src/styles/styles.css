@@ -1,0 +1,139 @@
+:after,
+:before {
+  @apply box-border;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  @apply font-sans text-sm md:text-base;
+}
+
+/* Heading */
+h1,
+.h1 {
+  @apply font-sans text-4xl font-semibold md:text-6xl;
+}
+
+h2,
+.h2 {
+  @apply my-3 font-sans text-3xl font-semibold md:text-5xl;
+}
+
+h3,
+.h3 {
+  @apply my-3 font-sans text-xl font-semibold md:text-3xl;
+}
+
+h4,
+.h4 {
+  @apply my-2 font-sans text-base font-semibold md:text-lg;
+}
+
+/* Prose */
+p {
+  @apply mb-4 font-sans text-sm md:text-base;
+}
+
+ul,
+ol {
+  @apply mb-8 list-inside list-disc;
+  list-style-image: none;
+}
+
+ol {
+  @apply list-decimal;
+}
+
+li p {
+  @apply inline;
+}
+
+:is(ol, ul) li {
+  @apply mb-[calc(2rem/2)] ml-3;
+}
+
+li > p {
+  @apply mb-[calc(2rem/2)];
+}
+
+li *:last-child {
+  @apply mb-[calc(2rem/2)];
+}
+
+li > ul {
+  @apply mt-[calc(2rem/2)] ml-8;
+}
+
+blockquote {
+  @apply my-8 ml-3 mr-8 w-full rounded border-l-2 border-l-cyan-700 bg-gray-100 py-4 pl-6 pr-4 text-slate-700 md:ml-0 md:pl-4;
+}
+
+blockquote > :last-child {
+  @apply mb-0;
+}
+
+table {
+  @apply my-8 w-full border-collapse border-spacing-1;
+}
+
+table thead tr th {
+  @apply border-b-[0.5px] border-b-cyan-300;
+}
+
+/* Link */
+a {
+  @apply font-sans text-sm text-cyan-400 hover:no-underline md:text-base;
+}
+
+a,
+button {
+  /* browser will not anticipate double click so proceeds with action quicker (300 ms quicker) */
+  @apply touch-manipulation;
+}
+
+h1 > a {
+  @apply text-inherit decoration-0;
+}
+
+:is(h2, h3, h4, h5, h6) > a {
+  @apply text-inherit decoration-0;
+}
+
+a:hover,
+a:focus {
+  @apply decoration-0;
+}
+
+figure {
+  @apply my-6;
+}
+
+figure figcaption {
+  @apply mt-2;
+}
+
+hr {
+  @apply my-3;
+}
+
+.astro-code {
+  @apply my-8 rounded-md border-8 border-gray-500;
+}
+
+.astro-code::-webkit-scrollbar {
+  background-color: transparent;
+  scrollbar-width: thin;
+}
+
+.astro-code::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-cyan-900 py-3;
+}

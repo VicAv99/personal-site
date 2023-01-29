@@ -18,7 +18,7 @@ const {
 
 <MainLayout title={title} description={description}>
   <article>
-    <h2 class="text-4xl font-semibold">{title}</h2>
+    <h2 class="mb-0 text-4xl">{title}</h2>
 
     <div class="pt-4 text-zinc-400">
       <div class="flex items-center justify-between">
@@ -31,7 +31,7 @@ const {
       </div>
       <!-- <span>•</span> -->
     </div>
-    <hr class="border-(t t-neutral-700) my-8" />
+    <hr class="border-(t t-neutral-700) mt-4 mb-6" />
     <slot />
   </article>
 </MainLayout>
