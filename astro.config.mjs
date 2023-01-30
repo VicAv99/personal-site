@@ -8,8 +8,8 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 import { remarkReadingTime } from './src/lib/reading-time.ts';
 
-// https://astro.build/config
 export default defineConfig({
+  output: "server",
   site: "https://victor-avila.com",
   markdown: {
     extendDefaultPlugins: true,

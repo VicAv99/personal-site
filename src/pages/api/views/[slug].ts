@@ -36,11 +36,3 @@ export const post: APIRoute = async ({ params }) => {
     }
   );
 };
-
-export function getStaticPaths() {
-  return [
-    { params: { slug: "angular-interceptors" } },
-    { params: { slug: "1" } },
-    { params: { slug: "2" } },
-  ];
-}
