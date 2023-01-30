@@ -3,6 +3,7 @@ import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
+import vercel from '@astrojs/vercel/serverless';
 import { defineConfig } from 'astro/config';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
@@ -20,4 +21,5 @@ export default defineConfig({
     },
   },
   integrations: [mdx(), sitemap(), tailwind(), image(), react()],
+  adapter: vercel(),
 });
