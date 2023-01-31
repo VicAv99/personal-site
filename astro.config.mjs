@@ -4,8 +4,8 @@ import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-
 import { remarkReadingTime } from "./src/lib/reading-time.ts";
+import vercel from "@astrojs/vercel/serverless";
 
 export default defineConfig({
   output: "server",
@@ -20,4 +20,5 @@ export default defineConfig({
     },
   },
   integrations: [mdx(), sitemap(), tailwind(), image()],
+  adapter: vercel(),
 });
