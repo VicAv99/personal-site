@@ -1,6 +1,7 @@
 ---
 import MainLayout from "./MainLayout.astro";
 import ViewsComponent from "../components/ViewsComponent.astro";
+import { Icon } from "astro-icon";
 
 export interface Props {
   content: {
@@ -12,26 +13,35 @@ export interface Props {
 }
 
 const {
-  url,
   content: { title, description, pubDate, readingTime },
 } = Astro.props;
-
-const slug = url.split("/blog/").join("");
 ---
 
 <MainLayout title={title} description={description}>
   <article>
-    <h2 class="mb-0 text-4xl">{title}</h2>
+    <a
+      href="/blog"
+      class="relative inline-flex text-sm before:absolute before:left-0 before:bottom-0 before:h-[0.05rem] before:w-full before:origin-right before:scale-x-0 before:bg-cyan-500 before:transition-transform before:duration-300 hover:before:origin-left hover:before:scale-x-100"
+    >
+      <Icon class="w-4" name="mdi:arrow-left" />
+      Back to Posts
+    </a>
+
+    <br />
+
+    <h2 class="mb-0 inline-flex flex-nowrap text-4xl">
+      {title}
+    </h2>
 
     <div class="pt-4 text-zinc-400">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-x-2">
-          <span class="text-base">{readingTime}</span>
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+        <div class="flex items-center gap-x-1 md:gap-x-2">
+          <time>Victor Avila</time>
           <span>-</span>
-          <time class="text-base">{pubDate}</time>
+          <time>{pubDate}</time>
         </div>
-        <div class="flex items-center gap-x-2">
-          <time class="text-base">Victor Avila</time>
+        <div class="flex items-center gap-x-1 md:gap-x-2">
+          <span>{readingTime}</span>
           <span>-</span>
           <ViewsComponent isBlogPage />
         </div>
