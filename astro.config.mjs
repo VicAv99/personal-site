@@ -10,11 +10,12 @@ import { remarkReadingTime } from "./src/lib/reading-time.ts";
 export default defineConfig({
   site: "https://victor-avila.com",
   markdown: {
+    drafts: true,
     extendDefaultPlugins: true,
     rehypePlugins: [rehypeAutolinkHeadings],
     remarkPlugins: [remarkReadingTime],
     shikiConfig: {
-      theme: "vitesse-dark",
+      theme: "dark-plus",
     },
   },
   integrations: [mdx(), sitemap(), tailwind(), image()],
