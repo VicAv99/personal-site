@@ -1,13 +1,12 @@
-import image from '@astrojs/image';
-import mdx from '@astrojs/mdx';
-import react from '@astrojs/react';
-import sitemap from '@astrojs/sitemap';
-import tailwind from '@astrojs/tailwind';
-import vercel from '@astrojs/vercel/serverless';
-import { defineConfig } from 'astro/config';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import image from "@astrojs/image";
+import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
+import tailwind from "@astrojs/tailwind";
+import vercel from "@astrojs/vercel/serverless";
+import { defineConfig } from "astro/config";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
-import { remarkReadingTime } from './src/lib/reading-time.ts';
+import { remarkReadingTime } from "./src/lib/reading-time.ts";
 
 export default defineConfig({
   output: "server",
@@ -20,6 +19,6 @@ export default defineConfig({
       theme: "vitesse-dark",
     },
   },
-  integrations: [mdx(), sitemap(), tailwind(), image(), react()],
+  integrations: [mdx(), sitemap(), tailwind(), image()],
   adapter: vercel(),
 });
