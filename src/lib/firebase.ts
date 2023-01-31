@@ -1,6 +1,6 @@
-import * as admin from 'firebase-admin';
+import admin from 'firebase-admin';
 
-if (!admin.apps.length) {
+if (!admin.apps?.length) {
   admin.initializeApp({
     credential: admin.credential.cert({
       projectId: import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
