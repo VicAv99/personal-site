@@ -2,14 +2,12 @@ import image from "@astrojs/image";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
-import vercel from "@astrojs/vercel/serverless";
 import { defineConfig } from "astro/config";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 import { remarkReadingTime } from "./src/lib/reading-time.ts";
 
 export default defineConfig({
-  output: "server",
   site: "https://victor-avila.com",
   markdown: {
     extendDefaultPlugins: true,
@@ -20,5 +18,4 @@ export default defineConfig({
     },
   },
   integrations: [mdx(), sitemap(), tailwind(), image()],
-  adapter: vercel(),
 });
