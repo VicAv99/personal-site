@@ -1,6 +1,6 @@
 ---
 import MainLayout from "./MainLayout.astro";
-import { ViewsComponent } from "../components/ViewsComponent";
+import ViewsComponent from "../components/ViewsComponent.astro";
 
 export interface Props {
   content: {
@@ -33,7 +33,7 @@ const slug = url.split("/blog/").join("");
         <div class="flex items-center gap-x-2">
           <time class="text-base">Victor Avila</time>
           <span>-</span>
-          <ViewsComponent client:only="react" slug={slug} isBlogPage />
+          <ViewsComponent isBlogPage />
         </div>
       </div>
       <!-- <span>•</span> -->

@@ -1,5 +1,5 @@
 ---
-import { ViewsComponent } from "./ViewsComponent";
+import ViewsComponent from "./ViewsComponent.astro";
 
 interface Props extends astroHTML.JSX.AnchorHTMLAttributes {
   title: string;
@@ -41,7 +41,7 @@ const formattedDate = new Date(date).toLocaleDateString("en-us", {
 
       <span>•</span>
 
-      <ViewsComponent client:only="react" slug={slug} isBlogPage={false} />
+      <ViewsComponent />
     </div>
   </div>
 </a>

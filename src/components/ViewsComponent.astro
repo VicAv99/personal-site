@@ -1,0 +1,28 @@
+---
+import { db } from "../lib/firebase";
+
+const { slug } = Astro.params;
+const { isBlogPage } = Astro.props;
+
+const document = db.doc(`views/${slug}`);
+const snapshot = await document.get();
+const views = snapshot.data()?.amount;
+
+if (!snapshot.exists) {
+  await document.create({
+    amount: 1,
+  });
+}
+
+if (isBlogPage) {
+  await document.update({
+    amount: views + 1,
+  });
+}
+
+const updatedViews = (await db.doc(`views/${slug}`).get()).data()?.amount;
+
+const viewsMessage = `${updatedViews ?? 0} views`;
+---
+
+{viewsMessage}
