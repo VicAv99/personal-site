@@ -13,8 +13,11 @@ export interface Props {
 }
 
 const {
+  url,
   content: { title, description, pubDate, readingTime },
 } = Astro.props;
+
+const slug = url.split("/blog/").join("");
 ---
 
 <MainLayout title={title} description={description}>
@@ -43,7 +46,7 @@ const {
         <div class="flex items-center gap-x-1 md:gap-x-2">
           <span>{readingTime}</span>
           <span>-</span>
-          <ViewsComponent isBlogPage />
+          <ViewsComponent isBlogPage slug={slug} />
         </div>
       </div>
       <!-- <span>•</span> -->

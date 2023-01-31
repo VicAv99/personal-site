@@ -1,8 +1,7 @@
 ---
 import { db } from "../lib/firebase";
 
-const { slug } = Astro.params;
-const { isBlogPage } = Astro.props;
+const { isBlogPage, slug } = Astro.props;
 
 const document = db.doc(`views/${slug}`);
 const snapshot = await document.get();
