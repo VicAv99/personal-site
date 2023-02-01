@@ -4,6 +4,7 @@ import FeaturedBlogPost from "../components/FeaturedBlogPost.astro";
 import { Icon } from "astro-icon";
 import { t } from "i18next";
 import { Trans } from "astro-i18next/components";
+import { localizePath } from "astro-i18next";
 
 interface Props {
   featuredPosts: Post[];
@@ -18,7 +19,10 @@ const { featuredPosts } = Astro.props;
       featuredPosts.length ? (
         t("featured.heading")
       ) : (
-        <a href="/blog" class="inline-block px-2 py-1 text-cyan-700 underline">
+        <a
+          href={localizePath("/blog")}
+          class="inline-block px-2 py-1 text-cyan-700 underline"
+        >
           {t("featured.heading-no-posts")}
         </a>
       )
@@ -37,7 +41,7 @@ const { featuredPosts } = Astro.props;
     }
   </div>
 
-  <a href="/blog" class="flex items-center">
+  <a href={localizePath("/blog")} class="flex items-center">
     <Trans i18nKey="featured.posts-link">
       <span class="text-sm"> Check out all my posts</span>
     </Trans>
