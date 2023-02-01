@@ -4,23 +4,25 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/normalise.css";
 import "../styles/styles.css";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import i18next, { t } from "i18next";
 
 export interface Props {
   title?: string;
   description?: string;
 }
 
-const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
+const { title, description } = Astro.props;
+const mainTitle: string = title ?? t("main.title");
+const mainDescription: string = description ?? t("main.description");
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang={i18next.language}>
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={mainTitle} description={mainDescription} />
   </head>
   <body class="m-auto bg-slate-50">
-    <Header title={title} />
+    <Header />
     <main>
       <slot />
     </main>

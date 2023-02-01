@@ -1,0 +1,32 @@
+---
+import { Trans } from "astro-i18next/components";
+import FeatureBlogsSection from "../components/FeatureBlogsSection.astro";
+import IntroSection from "../components/IntroSection.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+import type { Post } from "../types";
+
+const featuredPosts = (await Astro.glob<Post>("../pages/blog/*.{md,mdx}"))
+  .filter((post) => post.frontmatter.featured)
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.pubDate).valueOf() -
+      new Date(a.frontmatter.pubDate).valueOf()
+  )
+  .slice(0, 3);
+---
+
+<MainLayout>
+  <div class="space-y-14">
+    <IntroSection />
+    <Trans i18nKey="home.description">
+      Hi! I am a passionate developer who loves to learn and help others learn.
+      I'm interested in all things web and all the cool and cutting-edge
+      technologies that come with it. I specialize in Angular and React but I am
+      very interested in Astro and SvelteKit.
+      <br />
+      In my off-time, I like to watch "The Office," play a game of darts, or go out
+      for a drive and take in nature.
+    </Trans>
+    <FeatureBlogsSection featuredPosts={featuredPosts} />
+  </div>
+</MainLayout>

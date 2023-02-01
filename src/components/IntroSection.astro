@@ -1,25 +1,27 @@
 ---
 import { Image } from "@astrojs/image/components";
 import profile from "/public/profile-birds.jpg";
+import { Trans } from "astro-i18next/components";
+import { t } from "i18next";
 ---
 
 <div class="my-5 flex items-center justify-between">
   <div>
-    <h2 class="text-4xl font-semibold">Victor Avila</h2>
-    <span class="text-sm text-zinc-500">
-      Software Engineer at <span class="text-cyan-600">Cisco</span>
-    </span>
+    <h2 class="text-4xl font-semibold">{t("intro.heading")}</h2>
+    <Trans i18nKey="intro.title">
+      <span class="text-sm text-zinc-500">
+        Software Engineer at <span class="text-cyan-600">Cisco</span>
+      </span>
+    </Trans>
     <br />
-    <p class="mt-2 italic">
-      Building awesome and meaningful technology<br /> people care about.
-    </p>
+    <p class="mt-2 italic">{t("intro.slogan")}</p>
   </div>
   <div>
     <Image
       src={profile}
       width={100}
       height={100}
-      alt="descriptive text"
+      alt={t("intro.img-alt")}
       class="rounded-full shadow-lg mr-2 shadow-cyan-100"
     />
   </div>

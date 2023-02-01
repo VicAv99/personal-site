@@ -1,12 +1,15 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
+import { t } from "i18next";
 ---
 
 <header class="mb-10 mt-3 flex justify-end">
   <nav>
-    <HeaderLink href="/">Home</HeaderLink>
-    <HeaderLink href="/blog">Blog</HeaderLink>
-    <HeaderLink disabled href="/portfolio">Portfolio</HeaderLink>
-    <HeaderLink disabled href="/guest-book">Guest Book</HeaderLink>
+    <HeaderLink href="/">{t("header.home")}</HeaderLink>
+    <HeaderLink href="/blog">{t("header.blog")}</HeaderLink>
+    <HeaderLink disabled href="/portfolio">{t("header.portfolio")}</HeaderLink>
+    <HeaderLink disabled href="/guest-book">
+      {t("header.guest-book")}
+    </HeaderLink>
   </nav>
 </header>
