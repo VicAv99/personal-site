@@ -1,26 +1,26 @@
 {
   "main": {
     "title": "Victor Avila",
-    "description": "Construiendo tecnología asombrosa y significativa que le interese a la gente."
-  },
-  "header": {
-    "home": "Casa",
-    "blog": "Blog",
-    "portfolio": "Portafolio",
-    "guest-book": "Libro de Vistas"
-  },
-  "intro": {
-    "heading": "Victor Avila",
-    "title": "<0>Ingeniero de Software en <1>Cisco</1><0>",
-    "slogan": "Construiendo tecnología asombrosa y significativa que le interese a la gente.",
-    "img-alt": "foto de perfil de Victor Avila"
+    "description": "Construiendo tecnología asombrosa y significativa que le interese a la gente.",
+    "header": {
+      "home": "Casa",
+      "blog": "Blog",
+      "portfolio": "Portafolio",
+      "guest-book": "Libro de Vistas"
+    }
   },
   "home": {
-    "description": "¡Hola! Soy un desarrollador apasionado al que le encanta aprender y ayudar a otros a aprender. Estoy interesado en todo lo relacionado con la web y todas las tecnologías geniales y de vanguardia que vienen con ella. Me especializo en Angular y React pero estoy muy interesado en Astro y SvelteKit. <0></0> En mi tiempo libre, me gusta ver \"The Office\", jugar a los dardos y salir para conducir y disfrutar de la naturaleza."
-  },
-  "featured": {
-    "heading": "Publicaciones destacadas",
-    "heading-no-posts": "Visita mi blog",
-    "posts-link": "<0>Mira todas mis publicaciones</0>"
+    "description": "¡Hola! Soy un desarrollador apasionado al que le encanta aprender y ayudar a otros a aprender. Estoy interesado en todo lo relacionado con la web y todas las tecnologías geniales y de vanguardia que vienen con ella. Me especializo en Angular y React pero estoy muy interesado en Astro y SvelteKit. <0></0> En mi tiempo libre, me gusta ver \"The Office\", jugar a los dardos y salir para conducir y disfrutar de la naturaleza.",
+    "intro": {
+      "heading": "Victor Avila",
+      "title": "<0>Ingeniero de Software en <1>Cisco</1><0>",
+      "slogan": "Construiendo tecnología asombrosa y significativa que le interese a la gente.",
+      "img-alt": "foto de perfil de Victor Avila"
+    },
+    "featured": {
+      "heading": "Publicaciones destacadas",
+      "heading-no-posts": "Visita mi blog",
+      "posts-link": "<0>Mira todas mis publicaciones</0>"
+    }
   }
 }
