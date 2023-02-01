@@ -6,6 +6,8 @@ export default {
   routes: {
     es: {
       blog: "blog",
+      portfolio: "portafolio",
+      "guest-book": "libro-de-vistas",
     },
   },
 };
