@@ -5,11 +5,13 @@ import { t } from "i18next";
 
 <header class="mb-10 mt-3 flex justify-end">
   <nav>
-    <HeaderLink href="/">{t("header.home")}</HeaderLink>
-    <HeaderLink href="/blog">{t("header.blog")}</HeaderLink>
-    <HeaderLink disabled href="/portfolio">{t("header.portfolio")}</HeaderLink>
+    <HeaderLink href="/">{t("main.header.home")}</HeaderLink>
+    <HeaderLink href="/blog">{t("main.header.blog")}</HeaderLink>
+    <HeaderLink disabled href="/portfolio">
+      {t("main.header.portfolio")}
+    </HeaderLink>
     <HeaderLink disabled href="/guest-book">
-      {t("header.guest-book")}
+      {t("main.header.guest-book")}
     </HeaderLink>
   </nav>
 </header>

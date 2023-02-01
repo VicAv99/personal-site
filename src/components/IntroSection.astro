@@ -7,21 +7,21 @@ import { t } from "i18next";
 
 <div class="my-5 flex items-center justify-between">
   <div>
-    <h2 class="text-4xl font-semibold">{t("intro.heading")}</h2>
-    <Trans i18nKey="intro.title">
+    <h2 class="text-4xl font-semibold">{t("home.intro.heading")}</h2>
+    <Trans i18nKey="home.intro.title">
       <span class="text-sm text-zinc-500">
         Software Engineer at <span class="text-cyan-600">Cisco</span>
       </span>
     </Trans>
     <br />
-    <p class="mt-2 italic">{t("intro.slogan")}</p>
+    <p class="mt-2 italic">{t("home.intro.slogan")}</p>
   </div>
   <div>
     <Image
       src={profile}
       width={100}
       height={100}
-      alt={t("intro.img-alt")}
+      alt={t("home.intro.img-alt")}
       class="rounded-full shadow-lg mr-2 shadow-cyan-100"
     />
   </div>

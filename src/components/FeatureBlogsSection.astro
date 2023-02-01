@@ -17,13 +17,13 @@ const { featuredPosts } = Astro.props;
   <h4 class="mb-3 text-3xl font-semibold text-zinc-700">
     {
       featuredPosts.length ? (
-        t("featured.heading")
+        t("home.featured.heading")
       ) : (
         <a
           href={localizePath("/blog")}
           class="inline-block px-2 py-1 text-cyan-700 underline"
         >
-          {t("featured.heading-no-posts")}
+          {t("home.featured.heading-no-posts")}
         </a>
       )
     }
@@ -42,7 +42,7 @@ const { featuredPosts } = Astro.props;
   </div>
 
   <a href={localizePath("/blog")} class="flex items-center">
-    <Trans i18nKey="featured.posts-link">
+    <Trans i18nKey="home.featured.posts-link">
       <span class="text-sm"> Check out all my posts</span>
     </Trans>
     <Icon name="mdi:chevron-right" class="h-6 w-6 text-cyan-400" />
