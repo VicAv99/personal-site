@@ -6,6 +6,7 @@ import { defineConfig } from "astro/config";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { remarkReadingTime } from "./src/lib/reading-time.ts";
 import vercel from "@astrojs/vercel/serverless";
+import astroI18next from "astro-i18next";
 
 export default defineConfig({
   output: "server",
@@ -19,6 +20,6 @@ export default defineConfig({
       theme: "dark-plus",
     },
   },
-  integrations: [mdx(), sitemap(), tailwind(), image()],
+  integrations: [mdx(), sitemap(), tailwind(), image(), astroI18next()],
   adapter: vercel(),
 });
