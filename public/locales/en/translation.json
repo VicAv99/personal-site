@@ -1,0 +1,26 @@
+{
+  "main": {
+    "title": "Victor Avila",
+    "description": "Building awesome and meaningful technology people care about."
+  },
+  "header": {
+    "home": "Home",
+    "blog": "Blog",
+    "portfolio": "Portfolio",
+    "guest-book": "Guest Book"
+  },
+  "intro": {
+    "heading": "Victor Avila",
+    "title": "<0>Software Engineer at <1>Cisco</1><0>",
+    "slogan": "Building awesome and meaningful technology people care about.",
+    "img-alt": "Victor Avila profile picture"
+  },
+  "home": {
+    "description": "Hi! I am a passionate developer who loves to learn and help others learn. I'm interested in all things web and all the cool and cutting-edge technologies that come with it. I specialize in Angular and React but I am very interested in Astro and SvelteKit. <0></0> In my off-time, I like to watch \"The Office,\" play a game of darts, or go out for a drive and take in nature."
+  },
+  "featured": {
+    "heading": "Featured Posts",
+    "heading-no-posts": "Visit my blog",
+    "posts-link": "<0>Check out all my posts!</0>"
+  }
+}

@@ -2,7 +2,7 @@
 
 export default {
   defaultLocale: "en",
-  locales: ["en", "fr"],
+  locales: ["en", "es"],
   routes: {
     es: {
       blog: "blog",
