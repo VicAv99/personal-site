@@ -2,19 +2,23 @@
 import HeaderLink from "./HeaderLink.astro";
 import { t } from "i18next";
 import { localizePath } from "astro-i18next";
+import { LanguageSelector } from "astro-i18next/components";
 ---
 
-<header class="mb-10 mt-3 flex justify-end">
-  <nav>
-    <HeaderLink href={localizePath("/")}>{t("main.header.home")}</HeaderLink>
-    <HeaderLink href={localizePath("/blog")}>
-      {t("main.header.blog")}
-    </HeaderLink>
-    <HeaderLink disabled href={localizePath("/portfolio")}>
-      {t("main.header.portfolio")}
-    </HeaderLink>
-    <HeaderLink disabled href={localizePath("/guest-book")}>
-      {t("main.header.guest-book")}
-    </HeaderLink>
+<header class="mb-10 mt-3">
+  <nav class="flex justify-between">
+    <LanguageSelector showFlag class="border-0 rounded-md shadow-md" />
+    <div>
+      <HeaderLink href={localizePath("/")}>{t("main.header.home")}</HeaderLink>
+      <HeaderLink href={localizePath("/blog")}>
+        {t("main.header.blog")}
+      </HeaderLink>
+      <HeaderLink disabled href={localizePath("/portfolio")}>
+        {t("main.header.portfolio")}
+      </HeaderLink>
+      <HeaderLink disabled href={localizePath("/guest-book")}>
+        {t("main.header.guest-book")}
+      </HeaderLink>
+    </div>
   </nav>
 </header>
