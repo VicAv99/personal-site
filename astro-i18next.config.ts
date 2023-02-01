@@ -10,4 +10,9 @@ export default {
       "guest-book": "libro-de-vistas",
     },
   },
+  i18nextServer: {
+    backend: {
+      loadPath: "./public/locales/{{lng}}/{{ns}}.json",
+    },
+  },
 };
