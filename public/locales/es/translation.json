@@ -22,5 +22,8 @@
       "heading-no-posts": "Visita mi blog",
       "posts-link": "<0>Mira todas mis publicaciones</0>"
     }
+  },
+  "blog": {
+    "heading": "Blog"
   }
 }
