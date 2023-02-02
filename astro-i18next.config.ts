@@ -1,8 +1,10 @@
 /** @type {import('astro-i18next').AstroI18nextConfig} */
+import locales from "./public/locales/locales";
 
 export default {
   defaultLocale: "en",
   locales: ["en", "es"],
+  fallbackLang: "en",
   routes: {
     es: {
       blog: "blog",
@@ -11,8 +13,9 @@ export default {
     },
   },
   i18nextServer: {
-    backend: {
-      loadPath: "./public/locales/{{lng}}/{{ns}}.json",
-    },
+    resources: locales,
+  },
+  i18nextServerPlugins: {
+    fsBackend: null,
   },
 };
