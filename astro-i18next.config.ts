@@ -1,5 +1,5 @@
 /** @type {import('astro-i18next').AstroI18nextConfig} */
-import locales from "./public/locales/locales";
+import locales from './public/locales/locales';
 
 export default {
   defaultLocale: "en",
@@ -7,7 +7,10 @@ export default {
   fallbackLang: "en",
   routes: {
     es: {
-      blog: "blog",
+      blog: {
+        index: "blog",
+        "angular-interceptors": "interceptores-de-angular",
+      },
       portfolio: "portafolio",
       "guest-book": "libro-de-vistas",
     },

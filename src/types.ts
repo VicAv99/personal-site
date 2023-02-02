@@ -7,6 +7,6 @@ export interface Post {
     readingTime: string;
     draft?: boolean;
     featured?: boolean;
-    slug: string; // same as file name
+    language: "en" | "es";
   };
 }

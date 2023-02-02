@@ -1,0 +1,171 @@
+---
+layout: "../../../layouts/BlogPostLayout.astro"
+title: "Interceptores de Angular"
+description: "Información sobre los interceptos angulares y cómo usarlos"
+pubDate: "02/21/2019"
+featured: true
+language: es
+---
+
+ATTN. Este publicación fue traducido por [translate.google.com](translate.google.com)
+
+### Configuración Del Proyecto
+
+Para comenzar, puede encontrar el repositorio con la aplicación a la que se hace referencia en esta publicación aquí: [GitHub — VicAv99/http-interceptors](https://github.com/VicAv99/http-interceptors).
+
+Si desea omitir las secciones sobre qué es el código y sus usos, vaya a la sección **Ejemplo básico e implementación**.
+
+A continuación, encontrará pasos rápidos para comenzar con la aplicación de ejemplo para seguir/explorar:
+
+```bash
+# Clonar el repositorio
+$ git clone https://github.com/VicAv99/http-interceptors.git
+# cd en su directorio clonado
+$ cd http-interceptors
+# Instalar dependencias
+$ npm install
+# Iniciar la aplicación
+$ npm start
+```
+
+Ahora verá la aplicación en [http://localhost:4200](http://localhost:4200) y el servidor JSON ejecutándose en [http://localhost:3000/tasks](http://localhost:3000/tasks).
+
+---
+
+### El HttpInterceptor
+
+> Nota: La idea de esta publicación es tomar un ejemplo simple, comprender lo que está haciendo el ejemplo y encontrar exactamente cómo podemos aplicar eso a problemas más grandes de la vida real en proyectos futuros. Los ejemplos aislados, el uso de "cmd + clic" para obtener más detalles sobre un paquete y las explicaciones breves pero precisas pueden ser de gran ayuda cuando se enfrentan a problemas más grandes. Antes de comenzar con el código real y la implementación de nuestros interceptores, analicemos rápidamente qué son realmente los [HttpInterceptores](https://angular.io/api/common/http/HttpInterceptor).
+
+Los interceptores, como gran parte de Angular, son solo clases. Sin embargo, la clase que creamos deberá implementar la interfaz Angular **_HttpInterceptor_**. Al profundizar en las definiciones de tipo, vemos que esta interfaz describe una función llamada **_intercept_**.
+
+```typescript
+export interface HttpInterceptor {
+  /**
+   * * **req**: La solicitud saliente para manejar
+   * * **next**: El siguiente interceptor de la cadena, o el backend si no hay interceptores en la cadena.
+   *
+   */
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>>;
+}
+```
+
+La función de **_intercept_** toma dos argumentos, **_req_** y **_next_**. Estos argumentos también tienen interfaces aplicadas que usamos para devolver algún tipo de **_HttpEvent_** Observable. Primero, ampliaremos lo que trae el argumento **_req_**. Como una breve explicación, **_HttpRequest_** contiene cualquier solicitud HTTP saliente ejecutada por **_HttpClient_**. Otra mirada rápida a las definiciones de tipo que verá que se incluye en esta solicitud es la URL, el método, los encabezados, el cuerpo y otras opciones de configuración de la solicitud. Esto significa que este interceptor recibe la solicitud y todas sus propiedades adjuntas antes de enviarla a su servidor (nuestro servidor JSON en este caso). El segundo argumento (**_next_**) es una clase con un método abstracto llamado **_handle_**. Dependiendo de si está utilizando múltiples interceptores o no, este método enviará su respuesta al próximo interceptor, o al backend si no hay ninguno. ¡Genial!
+
+Entonces, para resumir, tenemos toda la información que podríamos desear sobre lo que enviamos a nuestro servidor a través de **_HttpClient_** y luego lo pasamos por la cadena de interceptores hasta que finalmente lo enviamos a nuestro servidor backend. Conociendo esta información, podemos hacer que sucedan cosas asombrosas.
+
+---
+
+### Ejemplo básico e implementación
+
+El ejemplo que estamos usando es una aplicación de tareas para planificar nuestro día. Los desarrolladores de la aplicación han ocultado algunas funciones interesantes en forma de **_HttpInterceptor_**. Estas funciones convierten la palabra "pizza" en un emoji de pizza y si llega a una tarea que es un bloqueador, se enviará una notificación para recordarle que hay otras personas allí para ayudarlo. Echemos un vistazo a la función **_BlockerInterceptor_**:
+
+```typescript
+// src/core/interceptors/blocker.interceptor.ts
+
+import { Injectable } from ‘@angular/core’;
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from ‘@angular/common/http’;
+import { MatSnackBar } from ‘@angular/material’;
+
+import { Observable } from ‘rxjs’;
+
+@Injectable({
+ providedIn: ‘root’
+})
+export class BlockerInterceptor implements HttpInterceptor {
+ constructor(private snackbar: MatSnackBar) { }
+
+ intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+   if (req.body && req.body.blocker) {
+     const message = ‘Reminder: Your teammates are available for help’;
+
+     this.notify(message);
+   }
+   return next.handle(req);
+ }
+
+ private notify(message: string) {
+   this.snackbar.open(message, ‘Ok’, { duration: 3000 });
+ }
+}
+```
+
+Arriba hay una función llamada **_notify_** que abre brevemente [Angular Material Snackbar](https://material.angular.io/components/snack-bar/overview) para mostrar un mensaje. Dentro de la función de intercepción, estamos comprobando si la solicitud tiene un cuerpo que se envía a nuestro servidor y si el cuerpo tiene un bloqueador de propiedades marcado como verdadero. Si se cumplen estos criterios, el método de notificación tendrá efecto durante tres segundos (3000 milisegundos) y el interceptor continuará y transmitirá la solicitud.
+
+---
+
+### Conecte el interceptor
+
+Como habrás notado, la función de interceptor usa el decorador **_@Injectable_** de Angular como un servicio. Entonces, ahora lo único que se puede inferir aquí es la necesidad de que nuestro interceptor personalizado se importe a nuestro módulo de aplicación y se incluya en los proveedores. Sin embargo, la clase debe proporcionarse a la aplicación en un formato un poco diferente al que estamos acostumbrados. Eche un vistazo a nuestros proveedores de módulos de aplicaciones ahora:
+
+```typescript
+// app.module.ts
+
+import { HttpClientModule, HTTP_INTERCEPTORS } from ‘@angular/common/http’;
+import { BlockerInterceptor } from ‘./core/interceptors/blocker.interceptor’;
+…
+providers: [
+ { provide: HTTP_INTERCEPTORS, useClass: BlockerInterceptor, multi: true }
+],
+…
+```
+
+Para que el interceptor se proporcione correctamente, se debe crear un objeto con tres propiedades dentro de él. Primero, agregue **_provide_** que escuchará el token **_HTTP_INTERCEPTORS_** que representa la matriz de **_HttpInterceptors_** que se está utilizando. Una vez que el token se agrega a la propiedad "proporcionar", el objeto verifica qué Clase va a usar para nuestro Interceptor. La clase **_BlockerInterceptor_** se importa al modelo y se incluye en la propiedad **_useClass_** del objeto. Como está implícito, la aplicación usará varios interceptores, por lo que **_multi_** se establece como demasiado verdadero.
+
+> Aparte: este enfoque solo funcionará para aplicaciones que no usen el módulo por función o carga diferida. Si su aplicación tiene una de estas arquitecturas, tendrá que proporcionarla por módulo.
+
+---
+
+### Modificación de solicitudes Http
+
+¿Qué hay del **_PizzaInterceptor_**? Lo mejor se ha guardado para el final. Dado que este es un ejemplo más "identificable" de lo que puede hacer HttpInterceptors, puede aplicar lo que ve aquí y pensar en formas de optimizar sus flujos de trabajo. Por ejemplo, supongamos que tiene un token de acceso que debe agregarse a cada encabezado de cada solicitud que está enviando o que está obteniendo datos XML que deben convertirse a JSON. Hacer todo eso manualmente es una molestia, pero con los interceptores, puede hacerlo globalmente y sin dolor.
+
+```typescript
+// src/core/interceptors/pizza.interceptor.ts
+
+import { Injectable } from ‘@angular/core’;
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from ‘@angular/common/http’;
+
+import { Observable } from ‘rxjs’;
+
+@Injectable({
+  providedIn: ‘root’
+})
+export class PizzaInterceptor implements HttpInterceptor {
+  constructor () { }
+
+  // Una solicitud HTTP saliente con un cuerpo escrito opcional.
+  // `HttpRequest` representa una solicitud saliente, incluida la URL, el método,
+  // encabezados, cuerpo y otras opciones de configuración de solicitudes. Las instancias deben ser
+  // se supone que es inmutable. Para modificar un `HttpRequest`, el `clone`
+  // se debe utilizar el método.
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (req.body) {
+      let { description } = req.body;
+      description = description.replace(/pizza/g, ‘🍕’);
+      const pizzaRequest = req.clone({ body: { description } });
+
+      return next.handle(pizzaRequest);
+    }
+    return next.handle(req);
+  }
+}
+```
+
+Aquí, tomamos el cuerpo de la solicitud que devolvemos y lo reestructuramos para obtener solo la propiedad de descripción (lo que vemos como nuestra tarea). Luego estamos usando una expresión regular simple que busca globalmente la palabra pizza y luego usamos el método de reemplazo de JavaScript para cambiar la palabra pizza por el emoji de pizza 🍕. En cuanto a los tipos, miramos el estado anterior, para modificar HttpRequest usamos el método **_clone_** para pasar nuestra nueva descripción que contiene el 🍕emoji. Luego devolvemos **_next.handle(pizzaRequest)_** y lo enviamos a nuestra cadena de interceptores. A continuación se muestra nuestro módulo de aplicación terminado con nuestro interceptor de pizza personalizado:
+
+```typescript
+// app.module.ts
+
+import { HttpClientModule, HTTP_INTERCEPTORS } from ‘@angular/common/http’;
+import { BlockerInterceptor } from ‘./core/interceptors / blocker.interceptor’;
+import { PizzaInterceptor } from ‘./core/interceptors / pizza.interceptor’;
+…
+providers: [
+  { provide: HTTP_INTERCEPTORS, useClass: BlockerInterceptor, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: PizzaInterceptor, multi: true }
+],
+…
+```

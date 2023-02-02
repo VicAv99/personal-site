@@ -2,6 +2,7 @@
 import MainLayout from "./MainLayout.astro";
 import ViewsComponent from "../components/ViewsComponent.astro";
 import { Icon } from "astro-icon";
+import { changeLanguage } from "i18next";
 import ReadProgress from "../components/ReadProgress";
 
 export interface Props {
@@ -18,11 +19,15 @@ const {
   content: { title, description, pubDate, readingTime },
 } = Astro.props;
 
-const slug = url.split("/blog/").join("");
+const slug = url.includes("es")
+  ? url.split("/es/blog/").join("")
+  : url.split("/blog/").join("");
+
+url.includes("es") ? changeLanguage("es") : changeLanguage("en");
 ---
 
 <MainLayout title={title} description={description}>
-  <ReadProgress client:load />
+  <ReadProgress client:only />
 
   <article>
     <a
