@@ -18,7 +18,9 @@ const {
   ...props
 } = Astro.props;
 
-const slug = (href as string).split("/blog/").join("");
+const slug = (href as string).includes("es")
+  ? (href as string).split("/es/blog/").join("")
+  : (href as string).split("/blog/").join("");
 
 const formattedDate = new Date(date).toLocaleDateString("en-us", {
   year: "numeric",

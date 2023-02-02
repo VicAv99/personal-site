@@ -10,7 +10,7 @@ const { href, class: className, disabled, ...props } = Astro.props;
 const { pathname } = Astro.url;
 const isActive =
   href === pathname ||
-  (href === "/"
+  (href === "/" || href === "/es"
     ? href === pathname.replace(/\/$/, "")
     : pathname.includes(href?.toString() ?? ""));
 

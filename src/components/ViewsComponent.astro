@@ -1,5 +1,6 @@
 ---
 import { db } from "../lib/firebase";
+import i18n from "i18next";
 
 const { isBlogPage, slug } = Astro.props;
 
@@ -21,7 +22,9 @@ if (isBlogPage) {
 
 const updatedViews = (await db.doc(`views/${slug}`).get()).data()?.amount;
 
-const viewsMessage = `${updatedViews ?? 0} views`;
+const viewsMessage = `${updatedViews ?? 0} ${
+  i18n.language === "en" ? "views" : "visitas"
+}`;
 ---
 
 {viewsMessage}

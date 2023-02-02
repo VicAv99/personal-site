@@ -25,5 +25,8 @@
   },
   "blog": {
     "heading": "Blog"
+  },
+  "post": {
+    "back": "Volver a Publicaciones"
   }
 }
