@@ -9,7 +9,9 @@ interface Props extends astroHTML.JSX.AnchorHTMLAttributes {
 
 const { date, readingTime, title, ...props } = Astro.props;
 
-const slug = (props.href as string).split("/blog/").join("");
+const slug = (props.href as string).includes("es")
+  ? (props.href as string).split("/es/blog/").join("")
+  : (props.href as string).split("/blog/").join("");
 
 const formattedDate = new Date(date).toLocaleDateString("en-us", {
   year: "2-digit",
