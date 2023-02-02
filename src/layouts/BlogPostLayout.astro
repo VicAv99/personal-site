@@ -2,6 +2,7 @@
 import MainLayout from "./MainLayout.astro";
 import ViewsComponent from "../components/ViewsComponent.astro";
 import { Icon } from "astro-icon";
+import ReadProgress from "../components/ReadProgress";
 
 export interface Props {
   content: {
@@ -21,6 +22,8 @@ const slug = url.split("/blog/").join("");
 ---
 
 <MainLayout title={title} description={description}>
+  <ReadProgress client:load />
+
   <article>
     <a
       href="/blog"
