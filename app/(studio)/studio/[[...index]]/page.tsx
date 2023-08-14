@@ -1,8 +1,7 @@
+"use client";
+
 import { NextStudio } from "next-sanity/studio";
-
-import config from "../../../../sanity.config";
-
-("use client");
+import config from "~/sanity.config";
 
 /**
  * This route is responsible for the built-in authoring environment using Sanity Studio.
