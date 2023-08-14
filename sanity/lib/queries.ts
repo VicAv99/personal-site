@@ -1,5 +1,26 @@
 import { groq } from "next-sanity";
 
+const postFields = `
+  _id,
+  title,
+  slug,
+  body,
+  excerpt,
+  publishedAt,
+  categories[]->{
+    _id,
+    title,
+    description
+  },
+  mainImage {alt, "image": asset->url},
+  "slug": slug.current,
+  "author": author->{name, picture},
+`;
+
+export const postsQuery = groq`*[_type == "post" && defined(slug.current)]{
+  ${postFields}
+}`;
+
 export const profileQuery = groq`*[_type == "profile"][0]{
   _id,
   fullName,

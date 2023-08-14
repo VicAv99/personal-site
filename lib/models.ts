@@ -1,5 +1,19 @@
 import { PortableTextBlock } from "sanity";
 
+export type AuthorType = {
+  _id: string;
+  name: string;
+  slug: string;
+  image?: ImageType;
+  bio?: PortableTextBlock;
+};
+
+export type CategoryType = {
+  _id: string;
+  title: string;
+  description?: string;
+};
+
 export type JobType = {
   _id: string;
   name: string;
@@ -23,6 +37,18 @@ export type ProfileType = {
   resumeURL?: string;
   socialLinks?: string[];
   skills?: string[];
+};
+
+export type PostType = {
+  _id: string;
+  title: string;
+  slug: string;
+  body: PortableTextBlock;
+  excerpt: string;
+  publishedAt: Date;
+  categories: CategoryType[];
+  mainImage?: ImageType;
+  author?: AuthorType;
 };
 
 export type ImageType = {
