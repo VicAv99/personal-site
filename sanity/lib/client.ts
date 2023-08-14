@@ -1,3 +1,4 @@
+import imageUrlBuilder from "@sanity/image-url";
 import { createClient } from "next-sanity";
 import { cache } from "react";
 
@@ -10,4 +11,5 @@ const client = createClient({
   useCdn,
 });
 
+export const imageBuilder = imageUrlBuilder(client);
 export const cachedFetchClient = cache(client.fetch.bind(client));

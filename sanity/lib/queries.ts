@@ -17,8 +17,16 @@ const postFields = `
   "author": author->{name, picture},
 `;
 
-export const postsQuery = groq`*[_type == "post" && defined(slug.current)]{
+export const postQuery = groq`*[_type == "post" && slug.current == $slug][0]{
   ${postFields}
+}`;
+
+export const postsQuery = groq`*[_type == "post" && defined(slug.current)] | order(startDate desc){
+  ${postFields}
+}`;
+
+export const postPathsQuery = groq`*[_type == "post" && defined(slug.current)][]{
+  "params": { "slug": slug.current }
 }`;
 
 export const profileQuery = groq`*[_type == "profile"][0]{

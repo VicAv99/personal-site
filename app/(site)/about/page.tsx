@@ -4,7 +4,7 @@ import Link from "next/link";
 import { BiEnvelope, BiFile } from "react-icons/bi";
 import { Button } from "~/components/ui/button";
 import { ProfileType } from "~/lib/models";
-import { cachedFetchClient } from "~/sanity/lib/client";
+import { cachedFetchClient, imageBuilder } from "~/sanity/lib/client";
 import { profileQuery } from "~/sanity/lib/queries";
 
 export default async function About() {
@@ -29,11 +29,11 @@ export default async function About() {
             <div>
               <Image
                 className="min-h-96 mb-4 max-h-96 rounded-2xl bg-muted bg-top object-cover"
-                src={profile.profileImage?.image ?? ""}
+                src={imageBuilder.image(profile.profileImage!).url()}
                 width={400}
                 height={400}
                 quality={100}
-                alt={profile.profileImage?.alt ?? ""}
+                alt={imageBuilder.image(profile.profileImage!).url()}
               />
 
               <Button asChild className="w-full" variant="secondary">

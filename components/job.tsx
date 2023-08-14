@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import Image from "next/image";
 import { JobType } from "~/lib/models";
-import { cachedFetchClient } from "~/sanity/lib/client";
+import { cachedFetchClient, imageBuilder } from "~/sanity/lib/client";
 import { jobsQuery } from "~/sanity/lib/queries";
 
 export async function Job() {
@@ -25,7 +25,7 @@ export async function Job() {
               className="relative min-h-[60px] min-w-[60px] overflow-clip rounded-md"
             >
               <Image
-                src={data?.logo ?? ""}
+                src={imageBuilder.image(data.logo!).url()}
                 className="object-cover"
                 alt={`${data.name} logo`}
                 fill
