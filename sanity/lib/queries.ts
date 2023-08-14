@@ -15,12 +15,12 @@ export const profileQuery = groq`*[_type == "profile"][0]{
 }`;
 
 export const jobsQuery = groq`*[_type == "job"] | order(startDate desc) {
-    _id,
-    name,
-    jobTitle,
-    "logo": logo.asset->url,
-    url,
-    description,
-    startDate,
-    endDate,
-  }`;
+  _id,
+  name,
+  jobTitle,
+  "logo": logo.asset->url,
+  url,
+  description,
+  startDate,
+  endDate,
+}`;
