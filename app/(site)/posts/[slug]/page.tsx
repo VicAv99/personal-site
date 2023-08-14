@@ -2,7 +2,7 @@ import { PortableText } from "@portabletext/react";
 import { Metadata } from "next";
 import Image from "next/image";
 import { PostType } from "~/lib/models";
-import { cachedFetchClient, imageBuilder } from "~/sanity/lib/client";
+import { cachedFetchClient } from "~/sanity/lib/client";
 import { postPathsQuery, postQuery } from "~/sanity/lib/queries";
 
 type Props = {
@@ -36,25 +36,17 @@ export default async function Project({ params }: Props) {
   return (
     <main className="mx-auto max-w-6xl px-8 lg:px-16">
       <div className="mx-auto max-w-3xl">
-        <div className="mb-4 flex items-start justify-between">
+        <div className="mb-4 flex items-start justify-start">
           <h1 className="mb-4 text-3xl font-bold lg:text-5xl lg:leading-tight">
             {post?.title}
           </h1>
-
-          <a
-            href={""}
-            rel="noreferrer noopener"
-            className="rounded-md border border-transparent bg-[#1d1d20] px-4 py-2 text-white hover:border-zinc-700"
-          >
-            Explore
-          </a>
         </div>
 
         <Image
           className="rounded-xl border border-zinc-800"
           width={900}
           height={460}
-          src={imageBuilder.image(post.mainImage!).url()}
+          src={post.mainImage?.image ?? ""}
           alt={post.mainImage?.alt || post.title}
         />
 

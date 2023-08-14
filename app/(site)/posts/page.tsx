@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PostType } from "~/lib/models";
-import { cachedFetchClient, imageBuilder } from "~/sanity/lib/client";
+import { cachedFetchClient } from "~/sanity/lib/client";
 import { postsQuery } from "~/sanity/lib/queries";
 
 export default async function Project() {
@@ -30,7 +30,7 @@ export default async function Project() {
             className="flex items-center gap-x-4 rounded-lg border border-transparent bg-muted p-4 ease-in-out hover:border-zinc-200"
           >
             <Image
-              src={imageBuilder.image(post.mainImage!).url()}
+              src={post.mainImage?.image ?? ""}
               width={60}
               height={60}
               alt={post.mainImage?.alt ?? ""}
