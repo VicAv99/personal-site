@@ -1,7 +1,8 @@
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 import Link from "next/link";
-import { BiEnvelope, BiFile } from "react-icons/bi";
+import { BiFile } from "react-icons/bi";
+import { Job } from "~/components/job";
 import { Button } from "~/components/ui/button";
 import { ProfileType } from "~/lib/models";
 import { cachedFetchClient } from "~/sanity/lib/client";
@@ -42,18 +43,6 @@ export default async function About() {
                 </Link>
               </Button>
             </div>
-
-            <ul>
-              <li>
-                <a
-                  href={`mailto:${profile.email}`}
-                  className="flex items-center gap-x-2 duration-300 hover:text-purple-400"
-                >
-                  <BiEnvelope className="text-lg" />
-                  {profile.email}
-                </a>
-              </li>
-            </ul>
           </div>
         </section>
 
@@ -76,6 +65,7 @@ export default async function About() {
           </ul>
         </section>
       </div>
+      <Job />
     </main>
   );
 }

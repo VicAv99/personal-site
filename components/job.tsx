@@ -40,7 +40,10 @@ export async function Job() {
                   ? format(new Date(data.endDate), "MMMM, yyyy")
                   : format(new Date(), "MMMM, yyyy")}
               </small>
-              <p className="my-4 text-base text-zinc-400">{data.description}</p>
+              <div
+                className="my-4 text-base text-zinc-400"
+                dangerouslySetInnerHTML={{ __html: data.description ?? "" }}
+              />
             </div>
           </div>
         ))}

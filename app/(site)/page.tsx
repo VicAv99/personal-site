@@ -1,4 +1,3 @@
-import { Job } from "~/components/job";
 import { Button } from "~/components/ui/button";
 import { ProfileType } from "~/lib/models";
 import { cachedFetchClient } from "~/sanity/lib/client";
@@ -23,8 +22,12 @@ export default async function Home() {
               .map(([key, value]) => (
                 <Button key={key} asChild variant="secondary">
                   <li>
-                    <a href={value} rel="noreferer noopener">
-                      {key[0].toUpperCase() + key.toLowerCase().slice(1)}
+                    <a
+                      href={value}
+                      rel="noreferer noopener"
+                      className="capitalize"
+                    >
+                      {key}
                     </a>
                   </li>
                 </Button>
@@ -32,7 +35,6 @@ export default async function Home() {
           </ul>
         </div>
       </section>
-      <Job />
     </main>
   );
 }
