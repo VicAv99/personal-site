@@ -1,12 +1,13 @@
 import Link from "next/link";
+import { PostCard } from "~/components/post-card";
 import { Button } from "~/components/ui/button";
 import { PostType, ProfileType } from "~/lib/models";
 import { cachedFetchClient } from "~/sanity/lib/client";
-import { postsQuery, profileQuery } from "~/sanity/lib/queries";
+import { featuredPostsQuery, profileQuery } from "~/sanity/lib/queries";
 
 export default async function Home() {
   const profile = await cachedFetchClient<ProfileType>(profileQuery);
-  const posts = await cachedFetchClient<PostType[]>(postsQuery);
+  const featuredPosts = await cachedFetchClient<PostType[]>(featuredPostsQuery);
 
   return (
     <main className="mx-auto max-w-7xl px-6 lg:px-16 space-y-24">
@@ -28,31 +29,11 @@ export default async function Home() {
       <section className="space-y-6">
         <h2>Featured Posts</h2>
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          {posts.map((post) => (
+          {featuredPosts.map((post) => (
             <PostCard key={post._id} post={post} />
           ))}
         </div>
       </section>
     </main>
-  );
-}
-
-interface PostCardProps {
-  post: Pick<PostType, "slug" | "title" | "excerpt">;
-}
-
-function PostCard({ post }: PostCardProps) {
-  return (
-    <Link
-      href={`/posts/${post.slug}`}
-      className="rounded-xl bg-gradient-to-r from-[#6EE7B7] via-[#3B82F6] to-[#9333EA] p-1"
-    >
-      <div className="bg-background rounded-lg p-3">
-        <h2 className="mb-1 font-semibold">{post.title}</h2>
-        <div className="text-sm text-zinc-400 break-all line-clamp-2">
-          {post.excerpt}
-        </div>
-      </div>
-    </Link>
   );
 }

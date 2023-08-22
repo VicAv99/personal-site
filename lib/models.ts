@@ -46,6 +46,7 @@ export type PostType = {
   body: PortableTextBlock;
   excerpt: string;
   publishedAt: Date;
+  featured: boolean;
   categories: CategoryType[];
   mainImage?: ImageType;
   author?: AuthorType;

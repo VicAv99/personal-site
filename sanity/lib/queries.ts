@@ -6,6 +6,7 @@ const postFields = `
   slug,
   body,
   excerpt,
+  featured,
   publishedAt,
   categories[]->{
     _id,
@@ -22,6 +23,10 @@ export const postQuery = groq`*[_type == "post" && slug.current == $slug][0]{
 }`;
 
 export const postsQuery = groq`*[_type == "post" && defined(slug.current)] | order(startDate desc){
+  ${postFields}
+}`;
+
+export const featuredPostsQuery = groq`*[_type == "post" && defined(slug.current) && featured == true] | order(startDate desc){
   ${postFields}
 }`;
 

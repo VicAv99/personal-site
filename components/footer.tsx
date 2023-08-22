@@ -28,7 +28,7 @@ export async function Footer() {
                 <Button
                   key={key}
                   asChild
-                  className="text-zinc-300"
+                  className="text-zinc-400"
                   variant="ghost"
                   size="sm"
                 >

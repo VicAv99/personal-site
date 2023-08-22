@@ -26,6 +26,12 @@ export default defineType({
       to: { type: "author" },
     }),
     defineField({
+      name: "featured",
+      title: "Featured post",
+      type: "boolean",
+      initialValue: false,
+    }),
+    defineField({
       name: "mainImage",
       title: "Main image",
       type: "image",
