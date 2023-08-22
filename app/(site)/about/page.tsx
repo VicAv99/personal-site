@@ -36,7 +36,7 @@ export default async function About() {
           />
 
           <Button asChild className="w-full" variant="secondary">
-            <Link href={`${profile.resumeURL}`}>
+            <Link href={`${profile.resumeURL}?dl=victor-avila-resume.pdf`}>
               <BiFile className="text-base" /> Download Resumé
             </Link>
           </Button>
