@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { PostCard } from "~/components/post-card";
 import { Button } from "~/components/ui/button";
 import { PostType, ProfileType } from "~/lib/models";
 import { cachedFetchClient } from "~/sanity/lib/client";
 import { featuredPostsQuery, profileQuery } from "~/sanity/lib/queries";
+
+import { FeaturedPosts } from "./featured-posts";
 
 export default async function Home() {
   const profile = await cachedFetchClient<ProfileType>(profileQuery);
@@ -26,14 +27,7 @@ export default async function Home() {
         </Button>
       </section>
 
-      <section className="space-y-6">
-        <h2>Featured Posts</h2>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          {featuredPosts.map((post) => (
-            <PostCard key={post._id} post={post} />
-          ))}
-        </div>
-      </section>
+      <FeaturedPosts featuredPosts={featuredPosts} />
     </main>
   );
 }

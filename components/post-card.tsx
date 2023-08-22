@@ -20,7 +20,7 @@ export function PostCard({ post }: PostCardProps) {
           "bg-gradient-to-r from-[#6EE7B7] via-[#3B82F6] to-[#9333EA]"
       )}
     >
-      <div className="bg-background hover:bg-zinc-50/90 rounded-lg p-3 space-y-2">
+      <div className="bg-background hover:bg-zinc-50/90 dark:hover:bg-zinc-50/30 rounded-lg p-3 space-y-2">
         <span className="flex justify-between items-center">
           <h2 className="font-semibold">{post.title}</h2>
           <p className="text-zinc-300 text-sm">
