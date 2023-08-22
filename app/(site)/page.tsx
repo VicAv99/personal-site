@@ -10,7 +10,7 @@ export default async function Home() {
   const featuredPosts = await cachedFetchClient<PostType[]>(featuredPostsQuery);
 
   return (
-    <main className="mx-auto max-w-7xl px-6 lg:px-16 space-y-24">
+    <main className="mx-auto max-w-5xl px-6 lg:px-16 space-y-24">
       <section className="max-w-2xl lg:max-w-2xl space-y-6">
         <h1 className="leading-tight lg:min-w-[700px] lg:leading-[3.7rem]">
           {profile.headline}
