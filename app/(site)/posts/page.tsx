@@ -9,7 +9,7 @@ export default async function PostsPage() {
 
   return (
     <main className="mx-auto max-w-5xl px-6 md:px-16 space-y-24">
-      <section className="max-w-2xl lg:max-w-2xl space-y-3">
+      <section className="max-w-2xl space-y-3">
         <h1 className="leading-tight lg:min-w-[700px] lg:leading-[3.7rem]">
           Blog posts!
         </h1>

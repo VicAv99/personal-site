@@ -5,44 +5,42 @@ import { PostType } from "~/lib/models";
 import { cachedFetchClient } from "~/sanity/lib/client";
 import { postPathsQuery, postQuery } from "~/sanity/lib/queries";
 
-type Props = {
+type PostPageProps = {
   params: {
     slug: string;
   };
 };
 
 export async function generateStaticParams() {
-  const rams = await cachedFetchClient<{ slug: string }>(postPathsQuery);
-  console.log(rams);
-  return rams;
+  return await cachedFetchClient<PostPageProps["params"]>(postPathsQuery);
 }
 
 // Dynamic metadata for SEO
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PostPageProps): Promise<Metadata> {
   const post = await cachedFetchClient<PostType>(postQuery, params);
 
   return {
-    title: `${post.title}`,
+    title: post.title,
     description: post.excerpt,
     openGraph: {
-      images: post.mainImage?.image || "add-a-fallback-project-image-here",
+      images: post.mainImage?.image,
       title: post.title,
       description: post.excerpt,
     },
   };
 }
 
-export default async function Project({ params }: Props) {
+export default async function PostPage({ params }: PostPageProps) {
   const post = await cachedFetchClient<PostType>(postQuery, params);
 
   return (
-    <main className="mx-auto max-w-6xl px-8 lg:px-16">
-      <div className="mx-auto max-w-3xl">
-        <div className="mb-4 flex items-start justify-start">
-          <h1 className="mb-4 text-3xl font-bold lg:text-5xl lg:leading-tight">
-            {post?.title}
-          </h1>
-        </div>
+    <main className="mx-auto max-w-5xl px-6 md:px-16 space-y-24">
+      <section className="max-w-4xl space-y-6 mx-auto">
+        <h1 className="leading-tight lg:min-w-[700px] lg:leading-[3.7rem]">
+          {post?.title}
+        </h1>
 
         <div className="h-96 max-w-[800px] relative">
           <Image
@@ -54,10 +52,10 @@ export default async function Project({ params }: Props) {
           />
         </div>
 
-        <div className="mt-8 flex flex-col gap-y-6 leading-7 text-zinc-700 whitespace-break-spaces">
+        <div className="flex flex-col gap-y-6 whitespace-break-spaces">
           <PortableText value={post.body} />
         </div>
-      </div>
+      </section>
     </main>
   );
 }
