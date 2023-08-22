@@ -12,7 +12,9 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-  return await cachedFetchClient(postPathsQuery);
+  const rams = await cachedFetchClient<{ slug: string }>(postPathsQuery);
+  console.log(rams);
+  return rams;
 }
 
 // Dynamic metadata for SEO
@@ -20,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await cachedFetchClient<PostType>(postQuery, params);
 
   return {
-    title: `${post.title} | Post`,
+    title: `${post.title}`,
     description: post.excerpt,
     openGraph: {
       images: post.mainImage?.image || "add-a-fallback-project-image-here",
@@ -42,15 +44,17 @@ export default async function Project({ params }: Props) {
           </h1>
         </div>
 
-        <Image
-          className="rounded-xl border border-zinc-800"
-          width={900}
-          height={460}
-          src={post.mainImage?.image ?? ""}
-          alt={post.mainImage?.alt || post.title}
-        />
+        <div className="h-96 max-w-[800px] relative">
+          <Image
+            fill
+            className="rounded-xl border border-zinc-800"
+            src={post.mainImage?.image ?? ""}
+            alt={post.mainImage?.alt || post.title}
+            objectFit="cover" // change to suit your needs
+          />
+        </div>
 
-        <div className="mt-8 flex flex-col gap-y-6 leading-7 text-zinc-400">
+        <div className="mt-8 flex flex-col gap-y-6 leading-7 text-zinc-700 whitespace-break-spaces">
           <PortableText value={post.body} />
         </div>
       </div>

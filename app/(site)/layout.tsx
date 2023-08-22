@@ -1,28 +1,16 @@
 import "../globals.css";
 
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
+import { PropsWithChildren } from "react";
 import { Footer } from "~/components/footer";
 import { Navbar } from "~/components/navbar";
 import { ThemeProvider } from "~/components/theme-provider";
 
 import type { Metadata } from "next";
-const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Sanity Next.js Portfolio Site",
-  metadataBase: new URL("https://sanity-nextjs-site.vercel.app"),
-  description: "A personal portfolio site built with Sanity and Next.js",
-  openGraph: {
-    images:
-      "https://res.cloudinary.com/victoreke/image/upload/v1689893059/docs/og.png",
-  },
-};
+const inter = Nunito({ subsets: ["latin"] });
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: PropsWithChildren<unknown>) {
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -35,3 +23,18 @@ export default function RootLayout({
     </html>
   );
 }
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://victor-avila.com"),
+  title: {
+    template: "%s | Victor Avila",
+    default: "Victor Avila",
+  },
+  description: "Software Engineer. Blog, projects, and more.",
+  keywords:
+    "victor avila, software engineer, full-stack, angular, next.js, supabase",
+  openGraph: {
+    images:
+      "https://res.cloudinary.com/victoreke/image/upload/v1689893059/docs/og.png",
+  },
+};

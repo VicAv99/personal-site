@@ -43,6 +43,8 @@ export const profileQuery = groq`*[_type == "profile"][0]{
   skills
 }`;
 
+export const socialLinksQuery = groq`*[_type == "profile"][0].socialLinks`;
+
 export const jobsQuery = groq`*[_type == "job"] | order(startDate desc) {
   _id,
   name,
