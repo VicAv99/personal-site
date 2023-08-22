@@ -4,6 +4,8 @@ import { cache } from "react";
 
 import { apiVersion, dataset, projectId, useCdn } from "../env";
 
+export const revalidate = 900;
+
 const client = createClient({
   apiVersion,
   dataset,
