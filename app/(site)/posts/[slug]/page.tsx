@@ -12,7 +12,7 @@ type PostPageProps = {
 };
 
 export async function generateStaticParams() {
-  return await cachedFetchClient<PostPageProps["params"]>(postPathsQuery);
+  return await cachedFetchClient(postPathsQuery);
 }
 
 // Dynamic metadata for SEO
