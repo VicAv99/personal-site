@@ -48,6 +48,7 @@ export default async function PostPage({ params }: PostPageProps) {
     },
     types: {
       code: ({ value }) => {
+        console.log({ value });
         return <SanityCodeBlock {...value} />;
       },
     },
