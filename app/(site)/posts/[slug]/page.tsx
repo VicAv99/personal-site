@@ -1,6 +1,8 @@
-import { PortableText } from "@portabletext/react";
+import { PortableText, PortableTextReactComponents } from "@portabletext/react";
 import { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
+import { CodeBlock } from "~/components/sanity/code-block";
 import { PostType } from "~/lib/models";
 import { cachedFetchClient } from "~/sanity/lib/client";
 import { postPathsQuery, postQuery } from "~/sanity/lib/queries";
@@ -35,6 +37,40 @@ export async function generateMetadata({
 export default async function PostPage({ params }: PostPageProps) {
   const post = await cachedFetchClient<PostType>(postQuery, params);
 
+  const components: Partial<PortableTextReactComponents> = {
+    marks: {
+      link: ({ value, children }) => {
+        const target = (value?.href || "").startsWith("http")
+          ? "_blank"
+          : undefined;
+        const rel =
+          target === "_blank" ? "noindex nofollow" : "noreferrer noopener";
+        return (
+          <Link
+            className="text-cyan-600 hover:underline"
+            href={value?.href}
+            target={target}
+            rel={rel}
+          >
+            {children}
+          </Link>
+        );
+      },
+    },
+    types: {
+      code: ({ value }) => {
+        return (
+          <CodeBlock
+            code={value.code}
+            filename={value.filename}
+            language={value.language}
+            highlightedLines={value.highlightedLines}
+          />
+        );
+      },
+    },
+  };
+
   return (
     <main className="mx-auto max-w-5xl px-6 md:px-16 space-y-24">
       <section className="max-w-4xl space-y-6 mx-auto">
@@ -53,7 +89,7 @@ export default async function PostPage({ params }: PostPageProps) {
         </div>
 
         <div className="flex flex-col gap-y-6 whitespace-break-spaces">
-          <PortableText value={post.body} />
+          <PortableText value={post.body} components={components} />
         </div>
       </section>
     </main>
