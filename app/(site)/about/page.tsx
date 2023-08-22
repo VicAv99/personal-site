@@ -27,6 +27,7 @@ export default async function About() {
 
         <div className="order-none flex flex-col gap-y-8 justify-self-start lg:order-1 lg:justify-self-center">
           <Image
+            priority
             className="min-h-96 mb-1 max-h-96 rounded-2xl bg-muted bg-top object-cover"
             src={profile.profileImage?.image ?? ""}
             width={400}

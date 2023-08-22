@@ -60,10 +60,10 @@ export default async function PostPage({ params }: PostPageProps) {
         <div className="h-96 max-w-[800px] relative">
           <Image
             fill
-            className="rounded-xl border border-zinc-800"
+            priority
+            className="rounded-xl border border-zinc-800 object-cover"
             src={post.mainImage?.image ?? ""}
             alt={post.mainImage?.alt || post.title}
-            objectFit="cover" // change to suit your needs
           />
         </div>
 
