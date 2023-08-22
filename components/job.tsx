@@ -8,10 +8,8 @@ export async function Job() {
   const jobs = await cachedFetchClient<JobType[]>(jobsQuery);
 
   return (
-    <section className="mt-32">
-      <div className="mb-16">
-        <h2 className="mb-4 text-4xl font-semibold">Work Experience</h2>
-      </div>
+    <section className="space-y-6">
+      <h2 className="mb-4 text-4xl font-semibold">Work Experience</h2>
 
       <div className="flex flex-col gap-y-12">
         {jobs.map((data) => (
