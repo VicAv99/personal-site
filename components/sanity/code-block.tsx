@@ -8,6 +8,7 @@ import { useCopyToClipboard } from "~/lib/hooks/use-copy-to-clipboard";
 import { useIsClient } from "~/lib/hooks/use-is-client";
 
 import { Button } from "../ui/button";
+import { cn } from "~/lib/cn";
 
 interface CodeBlockProps {
   code: string;
@@ -62,27 +63,32 @@ export function CodeBlock({
       </div>
       <div className=" py-4 bg-accent-solid-white shadow dark:bg-accent-5/50  max-h-[36rem] sm:max-h-[46rem] rounded-lg overflow-y-scroll scrollbar-hide">
         <Highlight theme={theme} code={code} language={language}>
-          {({ className, style, tokens, getLineProps, getTokenProps }) => (
-            <pre className={`${className} !bg-transparent px-2`} style={style}>
-              {tokens.map((line, i) => {
-                const { key, ...lineProps } = getLineProps({ line, key: i });
-                if (checkLine(i + 1)) {
-                  lineProps.className = `${lineProps.className} bg-[#fef3c8] dark:bg-[#27261c]`;
-                }
-                return (
-                  <div key={Math.random()} {...lineProps}>
-                    {line.map((token, lineKey) => {
-                      const { key, ...tokenProps } = getTokenProps({
-                        token,
-                        key: lineKey,
-                      });
-                      return <span key={lineKey} {...tokenProps} />;
-                    })}
-                  </div>
-                );
-              })}
-            </pre>
-          )}
+          {({ className, style, tokens, getLineProps, getTokenProps }) => {
+            return (
+              <pre
+                className={cn(className, '!bg-transparent px-2')}
+                style={style}
+              >
+                {tokens.map((line, i) => {
+                  const { key, ...lineProps } = getLineProps({ line, key: i });
+                  if (checkLine(i + 1)) {
+                    lineProps.className = cn(lineProps.className, 'bg-cyan-400/10 dark:bg-cyan-400/10');
+                  }
+                  return (
+                    <div key={Math.random()} {...lineProps}>
+                      {line.map((token, lineKey) => {
+                        const { key, ...tokenProps } = getTokenProps({
+                          token,
+                          key: lineKey,
+                        });
+                        return <span key={lineKey} {...tokenProps} />;
+                      })}
+                    </div>
+                  );
+                })}
+              </pre>
+            );
+          }}
         </Highlight>
       </div>
     </div>
