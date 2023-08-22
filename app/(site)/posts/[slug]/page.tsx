@@ -1,8 +1,8 @@
 import { PortableText, PortableTextReactComponents } from "@portabletext/react";
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import { CodeBlock } from "~/components/sanity/code-block";
+import { SanityCodeBlock } from "~/components/sanity/code-block";
+import { SanityLink } from "~/components/sanity/link";
 import { PostType } from "~/lib/models";
 import { cachedFetchClient } from "~/sanity/lib/client";
 import { postPathsQuery, postQuery } from "~/sanity/lib/queries";
@@ -39,34 +39,13 @@ export default async function PostPage({ params }: PostPageProps) {
 
   const components: Partial<PortableTextReactComponents> = {
     marks: {
-      link: ({ value, children }) => {
-        const target = (value?.href || "").startsWith("http")
-          ? "_blank"
-          : undefined;
-        const rel =
-          target === "_blank" ? "noindex nofollow" : "noreferrer noopener";
-        return (
-          <Link
-            className="text-cyan-600 hover:underline"
-            href={value?.href}
-            target={target}
-            rel={rel}
-          >
-            {children}
-          </Link>
-        );
-      },
+      link: ({ value, children }) => (
+        <SanityLink value={value}>{children}</SanityLink>
+      ),
     },
     types: {
       code: ({ value }) => {
-        return (
-          <CodeBlock
-            code={value.code}
-            filename={value.filename}
-            language={value.language}
-            highlightedLines={value.highlightedLines}
-          />
-        );
+        return <SanityCodeBlock {...value} />;
       },
     },
   };

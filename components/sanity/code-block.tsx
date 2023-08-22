@@ -4,25 +4,25 @@ import { useTheme } from "next-themes";
 import { Highlight, themes } from "prism-react-renderer";
 import { useState } from "react";
 import { BiCheck, BiCopy } from "react-icons/bi";
+import { cn } from "~/lib/cn";
 import { useCopyToClipboard } from "~/lib/hooks/use-copy-to-clipboard";
 import { useIsClient } from "~/lib/hooks/use-is-client";
 
 import { Button } from "../ui/button";
-import { cn } from "~/lib/cn";
 
-interface CodeBlockProps {
+interface SanityCodeBlockProps {
   code: string;
   filename: string;
   language: string;
   highlightedLines: number[];
 }
 
-export function CodeBlock({
+export function SanityCodeBlock({
   code,
   filename,
   language,
   highlightedLines,
-}: CodeBlockProps) {
+}: SanityCodeBlockProps) {
   const [copiedText, copyToClipboard] = useCopyToClipboard();
   const [copiedTextIcon, setCopiedTextIcon] = useState(!!copiedText);
 
@@ -66,13 +66,16 @@ export function CodeBlock({
           {({ className, style, tokens, getLineProps, getTokenProps }) => {
             return (
               <pre
-                className={cn(className, '!bg-transparent px-2')}
+                className={cn(className, "!bg-transparent px-2")}
                 style={style}
               >
                 {tokens.map((line, i) => {
                   const { key, ...lineProps } = getLineProps({ line, key: i });
                   if (checkLine(i + 1)) {
-                    lineProps.className = cn(lineProps.className, 'bg-cyan-400/10 dark:bg-cyan-400/10');
+                    lineProps.className = cn(
+                      lineProps.className,
+                      "bg-cyan-400/10 dark:bg-cyan-400/10"
+                    );
                   }
                   return (
                     <div key={Math.random()} {...lineProps}>
