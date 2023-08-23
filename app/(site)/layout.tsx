@@ -34,7 +34,36 @@ export const metadata: Metadata = {
   keywords:
     "victor avila, software engineer, full-stack, angular, next.js, supabase",
   openGraph: {
-    images:
-      "https://res.cloudinary.com/victoreke/image/upload/v1689893059/docs/og.png",
+    title: "Victor Avila",
+    description:
+      "Building awesome and meaningful technology people care about.",
+    url: "https://victor-avila.com",
+    siteName: "Victor Avila's Website",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: `/images/profile-birds.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "Victor Avila's site",
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  twitter: {
+    title: "Victor Avila",
+    card: "summary_large_image",
+    creator: "@victoravila__",
+  },
+  icons: {
+    shortcut: "https://victor-avila.com/favicons/favicon.ico",
   },
 };
