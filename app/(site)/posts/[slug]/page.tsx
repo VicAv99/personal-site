@@ -67,15 +67,14 @@ export default async function PostPage({ params }: PostPageProps) {
       <ScrollIndicator />
       <main className="mx-auto max-w-5xl px-6 md:px-16 space-y-24">
         <section className="max-w-4xl space-y-6 mx-auto">
-          <Link
-            href="/posts"
-            className="inline-flex items-center hover:underline hover:text-cyan-900"
-          >
-            <BiChevronLeft /> Back To Posts
-          </Link>
-          <h1 className="leading-tight lg:min-w-[700px] lg:leading-[3.7rem]">
-            {post?.title}
-          </h1>
+          <div className="flex items-center space-x-3">
+            <Link href="/posts" className="hover:underline">
+              <BiChevronLeft className="h-8 w-8" />
+            </Link>
+            <h1 className="leading-tight lg:min-w-[700px] lg:leading-[3.7rem]">
+              {post?.title}
+            </h1>
+          </div>
 
           <div className="h-96 max-w-[800px] relative">
             <Image
