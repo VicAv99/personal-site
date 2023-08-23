@@ -1,5 +1,4 @@
 import { PortableText, PortableTextReactComponents } from "@portabletext/react";
-import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { BiChevronLeft } from "react-icons/bi";
@@ -10,6 +9,7 @@ import { PostType } from "~/lib/models";
 import { cachedFetchClient } from "~/sanity/lib/client";
 import { postPathsQuery, postQuery } from "~/sanity/lib/queries";
 
+import type { Metadata } from "next";
 export const revalidate = 900;
 
 type PostPageProps = {

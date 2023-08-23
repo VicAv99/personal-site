@@ -4,6 +4,8 @@ import { postsQuery } from "~/sanity/lib/queries";
 
 import { Posts } from "./posts";
 
+import type { Metadata } from "next";
+
 export const revalidate = 900;
 
 export default async function PostsPage() {
@@ -21,3 +23,24 @@ export default async function PostsPage() {
     </main>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Posts",
+  description: "Blog posts written with ❤️!",
+  openGraph: {
+    title: "Posts",
+    description: "Blog posts written with ❤️!",
+    url: "https://victor-avila.com/posts",
+    siteName: "Victor Avila's Website",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: `/profile-black.jpeg`,
+        width: 1200,
+        height: 630,
+        alt: "Victor Avila's Posts page",
+      },
+    ],
+  },
+};

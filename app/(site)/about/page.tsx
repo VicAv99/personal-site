@@ -8,6 +8,7 @@ import { ProfileType } from "~/lib/models";
 import { cachedFetchClient } from "~/sanity/lib/client";
 import { profileQuery } from "~/sanity/lib/queries";
 
+import type { Metadata } from "next";
 export default async function About() {
   const profile = await cachedFetchClient<ProfileType>(profileQuery);
 
@@ -66,3 +67,26 @@ export default async function About() {
     </main>
   );
 }
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "A passionate developer who loves to learn and help others learn. I'm interested in all things web and all the cool and cutting-edge technologies that come with it.",
+  openGraph: {
+    title: "About",
+    description:
+      "A passionate developer who loves to learn and help others learn. I'm interested in all things web and all the cool and cutting-edge technologies that come with it.",
+    url: "https://victor-avila.com/about",
+    siteName: "Victor Avila's Website",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: `/profile-black.jpeg`,
+        width: 1200,
+        height: 630,
+        alt: "Victor Avila's About page",
+      },
+    ],
+  },
+};
