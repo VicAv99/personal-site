@@ -10,6 +10,8 @@ import { PostType } from "~/lib/models";
 import { cachedFetchClient } from "~/sanity/lib/client";
 import { postPathsQuery, postQuery } from "~/sanity/lib/queries";
 
+export const revalidate = 900;
+
 type PostPageProps = {
   params: {
     slug: string;

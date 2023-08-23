@@ -4,6 +4,8 @@ import { postsQuery } from "~/sanity/lib/queries";
 
 import { Posts } from "./posts";
 
+export const revalidate = 900;
+
 export default async function PostsPage() {
   const posts = await cachedFetchClient<PostType[]>(postsQuery);
 
