@@ -19,8 +19,8 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
           <Navbar />
           {children}
           <Footer />
+          <Analytics />
         </ThemeProvider>
-        <Analytics />
       </body>
     </html>
   );
