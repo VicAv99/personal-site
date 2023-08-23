@@ -1,5 +1,6 @@
 import "../globals.css";
 
+import { Analytics } from "@vercel/analytics/react";
 import { Nunito } from "next/font/google";
 import { PropsWithChildren } from "react";
 import { Footer } from "~/components/footer";
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
           {children}
           <Footer />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
