@@ -12,9 +12,9 @@ import { Button } from "../ui/button";
 
 interface SanityCodeBlockProps {
   code: string;
-  filename: string;
-  language: string;
-  highlightedLines: number[];
+  filename?: string;
+  language?: string;
+  highlightedLines?: number[];
 }
 
 export function SanityCodeBlock({
@@ -24,7 +24,7 @@ export function SanityCodeBlock({
   highlightedLines,
 }: SanityCodeBlockProps) {
   const [copiedText, copyToClipboard] = useCopyToClipboard();
-  const [copiedTextIcon, setCopiedTextIcon] = useState(!!copiedText);
+  const [copiedTextIcon, setCopiedTextIcon] = useState(false);
 
   const isClient = useIsClient();
   const { resolvedTheme } = useTheme();
@@ -37,7 +37,7 @@ export function SanityCodeBlock({
   };
 
   const checkLine = (index: number) => {
-    if (highlightedLines === undefined) return;
+    if (!highlightedLines) return;
     return highlightedLines.includes(index);
   };
 
@@ -62,7 +62,7 @@ export function SanityCodeBlock({
         </Button>
       </div>
       <div className=" py-4 bg-accent-solid-white shadow dark:bg-accent-5/50  max-h-[36rem] sm:max-h-[46rem] rounded-lg overflow-y-scroll scrollbar-hide">
-        <Highlight theme={theme} code={code} language={language}>
+        <Highlight theme={theme} code={code} language={language ?? 'typescript'}>
           {({ className, style, tokens, getLineProps, getTokenProps }) => {
             return (
               <pre
