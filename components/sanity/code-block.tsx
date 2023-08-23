@@ -49,7 +49,11 @@ export function SanityCodeBlock({
     <div className="border dark:border-accent-5/50 shadow-lg dark:shadow-none bg-accent-4/10 dark:bg-accent-5/25 px-3 pb-3 pt-1 rounded-xl my-6">
       <div className="flex justify-between mb-1">
         <div className="flex">
-          {filename ? <p className="opacity-70 pr-4">{filename}</p> : null}
+          {filename ? (
+            <p className="opacity-70 pr-4 truncate max-w-[175px] md:max-w-[400px] lg:max-w-[515px]">
+              {filename}
+            </p>
+          ) : null}
           {language !== "batchfile" ? (
             <p>
               lang: <span className="opacity-70">{language}</span>
@@ -62,7 +66,11 @@ export function SanityCodeBlock({
         </Button>
       </div>
       <div className=" py-4 bg-accent-solid-white shadow dark:bg-accent-5/50  max-h-[36rem] sm:max-h-[46rem] rounded-lg overflow-y-scroll scrollbar-hide">
-        <Highlight theme={theme} code={code} language={language ?? 'typescript'}>
+        <Highlight
+          theme={theme}
+          code={code}
+          language={language ?? "typescript"}
+        >
           {({ className, style, tokens, getLineProps, getTokenProps }) => {
             return (
               <pre
